@@ -25,3 +25,45 @@
             id: suaSenha
             text: '0'
             font_size: 30
+
+<Gerenciador>:
+    LoginLayout:
+
+
+<LoginLayout>:
+    BoxLayout:
+        id: login
+        padding: 200
+
+
+        BoxLayout:
+            spacing: 10
+            orientation: 'vertical'
+
+
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                Label:
+                    text: 'Login:'
+                TextInput:
+                    id: loginText
+                    font_size: 16
+                    multiline: False
+
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                Label:
+                    text: 'Senha:'
+                TextInput:
+                    id: passwordText
+                    multiline: False
+                    password: True
+
+            Button:
+                id: enterLogin
+                size_hint_y: None
+                height: 60
+                font_size: 16
+                text: 'Entrar'
