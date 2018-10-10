@@ -1,5 +1,6 @@
 import Model.No
 
+
 class LDE:
     def __init__(self, tamanho_do_lde=0, primeiro_no=None):
         self.tamanho_do_lde = tamanho_do_lde
