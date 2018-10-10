@@ -34,36 +34,38 @@
     BoxLayout:
         id: login
         padding: 200
-
+        spacing: 10
+        orientation: 'vertical'
 
         BoxLayout:
-            spacing: 10
-            orientation: 'vertical'
-
-
-            BoxLayout:
+            Image:
+                source: 'logo-hotel.png'
                 size_hint_y: None
-                height: 30
-                Label:
-                    text: 'Login:'
-                TextInput:
-                    id: loginText
-                    font_size: 16
-                    multiline: False
-
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                Label:
-                    text: 'Senha:'
-                TextInput:
-                    id: passwordText
-                    multiline: False
-                    password: True
-
-            Button:
-                id: enterLogin
-                size_hint_y: None
-                height: 60
+                height: 200
+                allow_stretch: True
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Label:
+                text: 'Login:'
+            TextInput:
+                id: loginText
                 font_size: 16
-                text: 'Entrar'
+                multiline: False
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Label:
+                text: 'Senha:'
+            TextInput:
+                id: passwordText
+                multiline: False
+                password: True
+
+        Button:
+            id: enterLogin
+            size_hint_y: None
+            height: 60
+            font_size: 16
+            text: 'Entrar'
