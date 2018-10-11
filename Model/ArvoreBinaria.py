@@ -34,53 +34,53 @@ class ArvoreBinaria:
         self.tamanho += 1
         return True
 
-    def antes(self, no):
+    def _antes(self, no):
         if no.folha_direita is None:
             return no
-        return self.antes(no.folha_direita)
+        return self._antes(no.folha_direita)
 
-    def quantosFilhos(self, no):
+    def _quantosFilhos(self, no):
         return (no.folha_esquerda is not None) + (no.folha_direita is not None)
 
-    def ponteiroDoPai(self, ponteiro_apagar, novo_ponteiro = None):
+    def _ponteiroDoPai(self, ponteiro_apagar, novo_ponteiro = None):
         if ponteiro_apagar.pai.folha_esquerda == ponteiro_apagar:
             ponteiro_apagar.pai.folha_esquerda = novo_ponteiro
         else:
             ponteiro_apagar.pai.folha_direita = novo_ponteiro
 
-    def search(self, no, valor):
+    def _search(self, no, valor):
         if no is None or no.valor == valor:
             return no
         elif valor > no.valor:
-            return self.search(no.folha_direita, valor)
+            return self._search(no.folha_direita, valor)
         else:
-            return self.search(no.folha_esquerda, valor)
+            return self._search(no.folha_esquerda, valor)
 
     def remove(self, valor):
-        if self.search(self.raiz, valor) is None:
+        if self._search(self.raiz, valor) is None:
             return False
         else:
-            self.remover(self.search(self.raiz, valor))
+            self._remover(self._search(self.raiz, valor))
         return True
 
-    def remover(self, valor):
-        filhos = self.quantosFilhos(valor)
+    def _remover(self, valor):
+        filhos = self._quantosFilhos(valor)
 
         if filhos == 0:
-            self.ponteiroDoPai(valor)
+            self._ponteiroDoPai(valor)
             del valor
         elif filhos == 1:
             f = valor.folha_esquerda
             if f is None:
                 f = valor.folha_direita
 
-            self.ponteiroDoPai(valor, f)
+            self._ponteiroDoPai(valor, f)
             f.pai = valor.pai
             del valor
         else:
-            anterior = self.antes(valor.folha_esquerda)
+            anterior = self._antes(valor.folha_esquerda)
             valor.valor = anterior.valor
-            self.remover(anterior)
+            self._remover(anterior)
 
     def ERD(self, aux):
         if aux:
