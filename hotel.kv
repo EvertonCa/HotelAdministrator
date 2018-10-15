@@ -28,6 +28,60 @@
 
 <Gerenciador>:
     LoginLayout:
+        name: 'login'
+    Menu:
+        name: 'menu'
+    Tarefas:
+        name: 'tarefas'
+    Cadastrar:
+        name: 'cadastro'
+    Buscar:
+        name: 'buscar'
+    Senhas:
+        name: 'senha'
+    Quartos:
+        name: 'quarto'
+    Pedidos:
+        name: 'pedido'
+    CheckOut:
+        name: 'out'
+    CheckIn:
+        name: 'in'
+
+<LabelPreto@Label>:
+    color: (0,0,0,1)
+
+<actionMenu@ActionBar>:
+    ActionBar:
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                title:'Menu'
+                on_release: app.root.current = 'menu'
+            ActionButton:
+                text: 'Cadastro'
+                on_release: app.root.current = 'cadastro'
+            ActionButton:
+                text: 'Buscar'
+                on_release: app.root.current = 'buscar'
+            ActionButton:
+                text: 'Senhas'
+                on_release: app.root.current = 'senha'
+            ActionButton:
+                text: 'Quartos'
+                on_release: app.root.current = 'quarto'
+            ActionButton:
+                text: 'Pedidos'
+                on_release: app.root.current = 'pedido'
+            ActionButton:
+                text: 'Check-out'
+                on_release: app.root.current = 'out'
+            ActionButton:
+                text: 'Check-in'
+                on_release: app.root.current = 'in'
+            ActionButton:
+                text: 'Sair'
+                on_release: app.stop()
 
 
 <LoginLayout>:
@@ -46,17 +100,16 @@
         BoxLayout:
             size_hint_y: None
             height: 30
-            Label:
+            LabelPreto:
                 text: 'Login:'
             TextInput:
                 id: loginText
                 font_size: 16
                 multiline: False
-
         BoxLayout:
             size_hint_y: None
             height: 30
-            Label:
+            LabelPreto:
                 text: 'Senha:'
             TextInput:
                 id: passwordText
@@ -64,8 +117,531 @@
                 password: True
 
         Button:
-            id: enterLogin
             size_hint_y: None
             height: 60
             font_size: 16
             text: 'Entrar'
+            on_press: root.verificaLogin(loginText.text,passwordText.text)
+
+
+<Menu>:
+    BoxLayout:
+        orientation:'vertical'
+        padding: 150
+        BoxLayout:
+            Button:
+                text: 'Cadastrar'
+                on_release: app.root.current = 'cadastro'
+            Button:
+                text: 'Buscar'
+                on_release: app.root.current = 'buscar'
+            Button:
+                text: 'Senhas'
+                on_release: app.root.current = 'senha'
+
+        BoxLayout:
+            Button:
+                text: 'Quartos'
+                on_release: app.root.current = 'quarto'
+            Button:
+                text: 'Pedidos'
+                on_release: app.root.current = 'pedido'
+            Button:
+                text: 'Check-out'
+                on_release: app.root.current = 'out'
+
+        BoxLayout:
+            Button:
+                text: 'Cadastra Funcionario'
+            Button:
+                text: 'Check-in'
+                on_release: app.root.current = 'in'
+            Button:
+                text: 'Sair'
+                on_release: app.stop()
+
+<Cadastrar>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 40
+                    LabelPreto:
+                        text: 'Nome:'
+                    TextInput:
+                        id: nome
+                        font_size: 16
+                        multiline: False
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 40
+                    LabelPreto:
+                        text: 'Telefone:'
+                    TextInput:
+                        id: telefone
+                        font_size: 16
+                        multiline: False
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 40
+                    LabelPreto:
+                        text: 'CPF:'
+                    TextInput:
+                        id: cpf
+                        font_size: 16
+                        multiline: False
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 60
+                    Button:
+                        font_size: 16
+                        text: 'OK'
+                        on_release: root.cadastraPessoa()
+
+<Pedidos>:
+    BoxLayout:
+        id: pedidos
+        spacing: 20
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+
+        BoxLayout:
+            size_hint_y: None
+            height: 60
+            LabelPreto:
+                text: 'Pedido:'
+            TextInput:
+                id: txtPedido
+            Button:
+                text: 'Adicionar'
+                on_release: root.addPedidos(txtPedido.text)
+
+        ScrollView:
+            BoxLayout:
+                id: blabla
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+
+
+<CheckOut>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            LabelPreto:
+                text: 'Numero do quarto'
+            TextInput:
+                id: num
+                multiline: False
+            Button:
+                text: 'Buscar'
+
+        ScrollView:
+            BoxLayout:
+                id: inputText
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Check-Out'
+                on_release: root.checkout()
+
+
+
+<CheckIn>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                BoxLayout:
+                    size_hint_y: None
+                    height: 60
+
+                    LabelPreto:
+                        text: 'Quantidade de pessoas no quarto:'
+
+                    Spinner:
+                        id: numPessIn
+                        text: "0"
+                        values: ["1", "2", "3", "4", "5"]
+                        on_text: root.qtdPessoas(numPessIn.text)
+
+                BoxLayout:
+                    id: inputNomes
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: 'vertical'
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 30
+                    LabelPreto:
+                        text: 'Numero do quarto:'
+                    TextInput:
+                        id: numQuarto
+                        multiline: False
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 60
+                    Button:
+                        text: 'OK'
+                        on_release: root.addPessQuarto(numPessIn.text, numQuarto.text)
+
+
+<Quartos>:
+    BoxLayout:
+        spacing: 20
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            LabelPreto:
+                text: 'Numero do quarto:'
+            TextInput:
+                id: txtQuarto
+                multiline: False
+            Button:
+                text: 'Buscar'
+                on_release: root.buscaQuarto(txtQuarto.text)
+        ScrollView:
+            BoxLayout:
+                id: listaDeQuartos
+
+
+
+<Senhas>:
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        BoxLayout:
+            padding: 100
+            size_hint_y: None
+            height: 250
+
+            LabelPreto:
+                text: 'Guiche:'
+                font_size: 30
+            Spinner:
+                id: guiche
+                text: "1"
+                values: ["1", "2", "3", "4", "5", "6", "7", "8"]
+        BoxLayout:
+            padding: 100
+            spacing: 40
+            Button:
+                text: 'Proxima Senha'
+                on_release: root.proximaSenha(guiche.text, False)
+            Button:
+                text: 'Proxima Senha Prioritaria'
+                on_release: root.proximaSenha(guiche.text, True)
+
+
+
+<Buscar>:
+    BoxLayout:
+        orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Buscar'
+                    on_release: app.root.current = 'buscar'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            LabelPreto:
+                text: 'Nome:    '
+            TextInput:
+                id: txtBusca
+                multiline: False
+            Button:
+                text: 'Pesquisar'
+                on_release: root.buscaNome(txtBusca.text)
+
+        ScrollView:
+            BoxLayout:
+                id: blabla
+
+
+
+<Tarefas>:
+    BoxLayout:
+        orientation:'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Tarefas'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        ScrollView:
+            BoxLayout:
+                id: box
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+        BoxLayout:
+            size_hint_y: None
+            height: 60
+            TextInput:
+                id: texto
+            Button:
+                text: '+'
+                size_hint_x: None
+                width: 60
+                on_release: root.addWidget()
+
+
+
+<Tarefa>:
+    size_hint_y: None
+    height: 200
+    LabelPreto:
+        id: label
+        font_size: 30
+    Button:
+        text: 'X'
+        size_hint_x: None
+        width: 60
+        on_release: app.root.get_screen('tarefas').ids.box.remove_widget(root)
+
+<PessoaIn>:
+    size_hint_y: None
+    height: 30
+    LabelPreto:
+        text: 'Nome:'
+        font_size: 30
+
+    TextInput:
+        id: default
+        multiline: False

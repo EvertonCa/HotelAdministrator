@@ -1,24 +1,138 @@
-import kivy
-kivy.require("1.9.0")
-
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.popup import Popup
+from kivy.uix.button import Button
+from kivy.core.window import Window
 
 
 class Gerenciador(ScreenManager):
     pass
 
+
+class Menu(Screen):
+    pass
+
+
+class Cadastrar(Screen):
+
+    def cadastraPessoa(self):
+        texto = self.ids.nome.text
+        telefone = self.ids.telefone.text
+        cpf = self.ids.cpf.text
+
+        print(texto + " " + telefone + " " + cpf)
+
+        App.get_running_app().root.current = 'menu'
+        CustomPopup().call_pops("Pessoa adcionada", "OK")
+
+
+class Senhas(Screen):
+    def proximaSenha(self, guiche, prioritaria):
+        if prioritaria:
+            print("Prioritaria guiche " + guiche)
+        else:
+            print("Guiche " + guiche)
+
+
+class Buscar(Screen):
+    def buscaNome(self, nome):
+        print("Busca o nome "+nome)
+
+
+class Quartos(Screen):
+    def buscaQuarto(self, quarto):
+        print("Buscar o quarto " + quarto)
+
+
+class Pedidos(Screen):
+    def addPedidos(self, pedido):
+        print("Adiciona pedido " + pedido)
+
+
+class CheckOut(Screen):
+    def checkout(self):
+        print("out")
+
+
+class PessoaIn(App):
+    def __init__(self,id='', **kwargs):
+        super().__init__(**kwargs)
+        self.ids.default.text = id
+
+
+class CheckIn(Screen):
+    def addPessQuarto(self, qtdPessoas, quarto):
+        msgPopUp = CustomPopup()
+        if int(qtdPessoas) == 0:
+            msgPopUp.call_pops('Nao pode ter 0 pessoas', 'Ok')
+            return
+
+        print(qtdPessoas + " " + quarto)
+        msgPopUp.call_pops(qtdPessoas + ' pessoas foram adicionadas ao quarto ' + quarto, 'Ok')
+        App.get_running_app().root.current = 'menu'
+
+    def qtdPessoas(self, qtdPessoas):
+        print(qtdPessoas)
+        for i in range(int(qtdPessoas)):
+            self.ids.inputNomes.add_widget(PessoaIn(id='pessoa'+str(i)))
+
 class LoginLayout(Screen):
-    def verificaLogin(self):
-        pass
+
+    def verificaLogin(self, login, pswd):
+
+        msgPopUp = CustomPopup()
+
+        if login == "root" and pswd == "toor":
+            print("Certo miseravi!")
+            App.get_running_app().root.current = 'menu'
+        else:
+            msgPopUp.call_pops('Errrooou!!', 'Ok')
+            print("Errrooou")
 
 
-class HotelApp(App):
+class CustomPopup(Popup):
+    def call_pops(self, tit, conten):
+        cont = Button(text=conten)
+        pop = Popup(title=tit, content=cont, size_hint=(None, None), size=(200, 100), auto_dismiss=True)
+        pop.open()
+        cont.bind(on_press=pop.dismiss)
 
+
+class Tarefas(Screen):
+    def __init__(self, tarefas=[], **kwargs):
+        super().__init__(**kwargs)
+        for tarefa in tarefas:
+            self.ids.box.add_widget(Tarefa(text=tarefa))
+
+    def on_pre_enter(self):
+        Window.bind(on_keyboard=self.voltar)
+
+    def voltar(self,window,key,*args):
+        if key == 27:
+            App.get_running_app().root.current = 'menu'
+            return True
+
+    def on_pre_leave(self):
+        Window.unbind(on_keyboard=self.voltar)
+
+    def addWidget(self):
+        texto = self.ids.texto.text
+        self.ids.box.add_widget(Tarefa(text=texto))
+        self.ids.texto.text = ''
+
+
+class Tarefa(BoxLayout):
+    def __init__(self,text='', **kwargs):
+        super().__init__(**kwargs)
+        self.ids.label.text = text
+
+
+class Hotel(App):
     def build(self):
+        Window.clearcolor = (1, 1, 1, 1)
         return Gerenciador()
 
-calcApp = HotelApp()
-calcApp.run()
+
+Hotel().run()
 

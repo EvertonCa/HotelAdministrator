@@ -20,6 +20,5 @@ class HotelApp(App):
     def build(self):
         return RetiraSenhaLayout()
 
-calcApp = HotelApp()
-calcApp.run()
+HotelApp().run()
 
