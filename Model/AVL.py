@@ -83,12 +83,13 @@ class AVL:
 
     def _balanceia(self, no):
         while no:
-            if self._fator_balanceamento(no) >= 2:
+            fb = self._fator_balanceamento(no)
+            if fb >= 2:
                 if no.folha_direita and self._fator_balanceamento(no.folha_direita) < 0:
                     self._right(no.folha_direita)
                 self._left(no)
 
-            elif self._fator_balanceamento(no) <= -2:
+            elif fb <= -2:
                 if no.folha_esquerda and self._fator_balanceamento(no.folha_esquerda) > 0:
                     self._left(no.folha_esquerda)
                 self._right(no)
