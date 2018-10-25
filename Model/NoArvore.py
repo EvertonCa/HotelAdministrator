@@ -4,3 +4,4 @@ class No:
         self.pai = None
         self.folha_esquerda = None
         self.folha_direita = None
+        self.altura = None

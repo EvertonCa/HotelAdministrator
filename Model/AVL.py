@@ -9,15 +9,26 @@ class AVL:
         if no is None:
             return -1
         else:
-            altura_folha_esquerda = self._altura(no.folha_esquerda)
-            altura_folha_direita = self._altura(no.folha_direita)
-            if altura_folha_esquerda > altura_folha_direita:
-                return altura_folha_esquerda + 1
+            altura_esquerda = self._altura(no.folha_esquerda)
+            altura_direita = self._altura(no.folha_direita)
+            if altura_esquerda > altura_direita:
+                no.altura = altura_esquerda + 1
+                return no.altura
             else:
-                return altura_folha_direita + 1
+                no.altura = altura_direita + 1
+                return no.altura
 
     def _fator_balanceamento(self, no):
-        return self._altura(no.folha_direita) - self._altura(no.folha_esquerda)
+        if no.folha_direita:
+            altura_direita = no.folha_direita.altura
+        else:
+            altura_direita = -1
+        if no.folha_esquerda:
+            altura_esquerda = no.folha_esquerda.altura
+        else:
+            altura_esquerda = -1
+
+        return altura_direita - altura_esquerda
 
     def _left(self, no):
         if no.folha_direita is None:
@@ -83,15 +94,18 @@ class AVL:
 
     def _balanceia(self, no):
         while no:
+            self._altura(no)
             fb = self._fator_balanceamento(no)
             if fb >= 2:
                 if no.folha_direita and self._fator_balanceamento(no.folha_direita) < 0:
                     self._right(no.folha_direita)
+                    self._altura(no)
                 self._left(no)
 
             elif fb <= -2:
                 if no.folha_esquerda and self._fator_balanceamento(no.folha_esquerda) > 0:
                     self._left(no.folha_esquerda)
+                    self._altura(no)
                 self._right(no)
 
             no = no.pai
@@ -156,16 +170,28 @@ class AVL:
             valor.valor = anterior.valor
             self._remover(anterior)
 
-    def ERD(self, aux):
+    def _ERD(self, aux):
         if aux:
-            self.ERD(aux.folha_esquerda)
+            self._ERD(aux.folha_esquerda)
             print(aux.valor, end=" ", flush=True)
-            self.ERD(aux.folha_direita)
+            self._ERD(aux.folha_direita)
             return True
         return False
 
-    def print(self):
-        self.ERD(self.raiz)
+    def printERD(self):
+        self._ERD(self.raiz)
+        print("")
+
+    def _RED(self, aux):
+        if aux:
+            print(aux.valor, end=" ", flush=True)
+            self._RED(aux.folha_esquerda)
+            self._RED(aux.folha_direita)
+            return True
+        return False
+
+    def printRED(self):
+        self._RED(self.raiz)
         print("")
 
     def insert(self, valor):
@@ -198,14 +224,20 @@ class AVL:
         return True
 
 
-arvoreAVL = AVL()
-arvoreAVL.insert(5)
-arvoreAVL.insert(8)
-arvoreAVL.insert(2)
-arvoreAVL.insert(4)
-arvoreAVL.print()
-arvoreAVL.insert(41)
-arvoreAVL.insert(42)
-arvoreAVL.insert(43)
-arvoreAVL.insert(44)
-arvoreAVL.print()
+arvore2 = AVL()
+arvore2.insert(1)
+arvore2.insert(99)
+arvore2.insert(88)
+arvore2.insert(-5)
+arvore2.insert(0)
+arvore2.insert(-7)
+print(" ------- ERD ------- ")
+arvore2.printERD()
+print(" ------- RED ------- ")
+arvore2.printRED()
+
+arvore2.remove(0)
+print(" ------- ERD ------- ")
+arvore2.printERD()
+print(" ------- ERD ------- ")
+arvore2.printRED()
