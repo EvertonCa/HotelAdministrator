@@ -17,7 +17,7 @@ class AVL:
                 return altura_folha_direita + 1
 
     def _fator_balanceamento(self, no):
-        return self._altura(no.folha_esquerda) - self._altura(no.folha_direita)
+        return self._altura(no.folha_direita) - self._altura(no.folha_esquerda)
 
     def _left(self, no):
         if no.folha_direita is None:
@@ -45,6 +45,11 @@ class AVL:
 
         nova_raiz.folha_esquerda = no
 
+        if no.folha_direita == nova_raiz:
+            no.folha_direita = None
+        if no.folha_esquerda == nova_raiz:
+            no.folha_esquerda = None
+
     def _right(self, no):
         if no.folha_esquerda is None:
             return None
@@ -70,6 +75,11 @@ class AVL:
             no.folha_esquerda.pai = no
 
         nova_raiz.folha_direita = no
+
+        if no.folha_direita == nova_raiz:
+            no.folha_direita = None
+        if no.folha_esquerda == nova_raiz:
+            no.folha_esquerda = None
 
     def _balanceia(self, no):
         while no:
@@ -108,10 +118,22 @@ class AVL:
             return self._search(no.folha_esquerda, valor)
 
     def remove(self, valor):
-        if self._search(self.raiz, valor) is None:
+        a_remover = self._search(self.raiz, valor)
+        if a_remover is None:
             return False
-        else:
-            self._remover(self._search(self.raiz, valor))
+
+        temp = None
+
+        if a_remover.pai:
+            temp = a_remover.pai
+
+        self._remover(a_remover)
+
+        if temp is None:
+            temp = self.raiz
+
+        self._balanceia(temp)
+
         return True
 
     def _remover(self, valor):
@@ -184,5 +206,5 @@ arvoreAVL.print()
 arvoreAVL.insert(41)
 arvoreAVL.insert(42)
 arvoreAVL.insert(43)
-#arvoreAVL.insert(44)
+arvoreAVL.insert(44)
 arvoreAVL.print()
