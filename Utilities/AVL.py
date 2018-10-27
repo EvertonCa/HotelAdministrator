@@ -1,4 +1,5 @@
-import Model.NoArvore
+import Utilities.NoArvore
+
 
 class AVL:
     def __init__(self):
@@ -195,7 +196,7 @@ class AVL:
         print("")
 
     def insert(self, valor):
-        novo = Model.NoArvore.No()
+        novo = Utilities.NoArvore.No()
         atual = self.raiz
         anterior = None
 

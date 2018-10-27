@@ -1,4 +1,4 @@
-import Model.No
+import Utilities.No
 
 
 class FilaEncadeada:
@@ -8,7 +8,7 @@ class FilaEncadeada:
         self.primeiro_no = primeiro_no
 
     def push(self, value):
-        novo = Model.No.No(value)
+        novo = Utilities.No.No(value)
 
         if novo is None:
             return False

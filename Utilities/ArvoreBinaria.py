@@ -1,4 +1,4 @@
-import Model.NoArvore
+import Utilities.NoArvore
 
 
 class ArvoreBinaria:
@@ -7,7 +7,7 @@ class ArvoreBinaria:
         self.tamanho = 0
 
     def insert(self, valor):
-        novo = Model.NoArvore.No()
+        novo = Utilities.NoArvore.No()
         atual = self.raiz
         anterior = None
 

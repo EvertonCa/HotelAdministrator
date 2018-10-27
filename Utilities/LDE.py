@@ -1,4 +1,4 @@
-import Model.No
+import Utilities.No
 
 
 class LDE:
@@ -7,7 +7,7 @@ class LDE:
         self.primeiro_no = primeiro_no
 
     def insert(self, value):
-        no_novo = Model.No.No(valor=value)
+        no_novo = Utilities.No.No(valor=value)
 
         no_anterior = None
         no_atual = self.primeiro_no
