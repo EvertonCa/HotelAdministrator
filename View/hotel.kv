@@ -33,8 +33,8 @@
         name: 'menu'
     Cadastrar:
         name: 'cadastro'
-    Buscar:
-        name: 'buscar'
+    Cliente:
+        name: 'clientes'
     Senhas:
         name: 'senha'
     Quartos:
@@ -45,6 +45,8 @@
         name: 'out'
     CheckIn:
         name: 'in'
+    CadastrarFuncionario:
+        name: 'cadastroFuncioonario'
 
 <LabelPreto@Label>:
     color: (0,0,0,1)
@@ -60,8 +62,8 @@
                 text: 'Cadastro'
                 on_release: app.root.current = 'cadastro'
             ActionButton:
-                text: 'Buscar'
-                on_release: app.root.current = 'buscar'
+                text: 'Clientes'
+                on_release: app.root.current = 'clientes'
             ActionButton:
                 text: 'Senhas'
                 on_release: app.root.current = 'senha'
@@ -132,9 +134,9 @@
                 ActionOverflow:
                     ActionButton:
                         text: 'Login'
-                        on_release: app.root.current = 'login'
+                        on_release: app.root.current = 'logout'
                     ActionButton:
-                        text: 'Desligar'
+                        text: 'Fechar'
                         on_release: app.stop()
                 ActionPrevious:
                     title: 'Bem Vindo!'
@@ -150,11 +152,11 @@
                     text: 'Cadastrar'
                     on_release: app.root.current = 'cadastro'
                 Button:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
                 Button:
-                    text: 'Senhas'
-                    on_release: app.root.current = 'senha'
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
 
             BoxLayout:
                 spacing: 30
@@ -165,19 +167,17 @@
                     text: 'Pedidos'
                     on_release: app.root.current = 'pedido'
                 Button:
-                    text: 'Check-out'
-                    on_release: app.root.current = 'out'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
 
             BoxLayout:
                 spacing: 30
                 Button:
                     text: 'Cadastra Funcionario'
+                    on_release: app.root.current = 'cadastroFuncioonario'
                 Button:
-                    text: 'Check-in'
-                    on_release: app.root.current = 'in'
-                Button:
-                    text: 'Sair'
-                    on_release: app.stop()
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
 
 <Cadastrar>:
     BoxLayout:
@@ -193,8 +193,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -292,6 +292,137 @@
                             text: 'OK'
                             on_release: root.cadastraPessoa()
 
+
+<CadastrarFuncionario>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 100
+
+            ScrollView:
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Nome:'
+                        TextInput:
+                            id: nome
+                            font_size: 16
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Telefone:'
+                        TextInput:
+                            id: telefone
+                            font_size: 16
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'CPF:'
+                        TextInput:
+                            id: cpf
+                            font_size: 16
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Endereco:'
+                        TextInput:
+                            id: endeteco
+                            font_size: 16
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        BoxLayout:
+                            LabelPreto:
+                                text: 'Sexo:'
+                        BoxLayout:
+                            CheckBox:
+                                color: 0, 0, 0, 1
+                                group: "sexo_pessoa"
+                                value: root.M
+                            LabelPreto:
+                                text: 'M'
+                            CheckBox:
+                                color: 0, 0, 0, 1
+                                group: "sexo_pessoa"
+                                value: root.F
+                            LabelPreto:
+                                text: 'F'
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Login:'
+                        TextInput:
+                            id: usuario
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Senha:'
+                        TextInput:
+                            id: pwd
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            font_size: 16
+                            text: 'OK'
+                            on_release: root.cadastraFuncionario()
+
 <Pedidos>:
     BoxLayout:
         orientation: 'vertical'
@@ -306,8 +437,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -365,8 +496,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -429,8 +560,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -507,8 +638,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -531,20 +662,88 @@
             spacing: 20
             orientation: 'vertical'
             padding: 30
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                LabelPreto:
-                    text: 'Numero do quarto:'
-                TextInput:
-                    id: txtQuarto
-                    multiline: False
-                Button:
-                    text: 'Buscar'
-                    on_release: root.buscaQuarto(txtQuarto.text)
             ScrollView:
                 BoxLayout:
-                    id: listaDeQuartos
+                    size_hint_y: None
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y:None
+                        height:200
+                        ButoonQuarto:
+                            text: '01'
+                            on_release: root.buscaQuarto('01')
+                        ButoonQuarto:
+                            text: '02'
+                            on_release: root.buscaQuarto('02')
+                        ButoonQuarto:
+                            text: '03'
+                            on_release: root.buscaQuarto('03')
+                        ButoonQuarto:
+                            text: '04'
+                            on_release: root.buscaQuarto('04')
+                        ButoonQuarto:
+                            text: '05'
+                            on_release: root.buscaQuarto('05')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height:200
+                        ButoonQuarto:
+                            text: '11'
+                            on_release: root.buscaQuarto('11')
+                        ButoonQuarto:
+                            text: '12'
+                            on_release: root.buscaQuarto('12')
+                        ButoonQuarto:
+                            text: '13'
+                            on_release: root.buscaQuarto('13')
+                        ButoonQuarto:
+                            text: '14'
+                            on_release: root.buscaQuarto('14')
+                        ButoonQuarto:
+                            text: '15'
+                            on_release: root.buscaQuarto('15')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height:200
+                        ButoonQuarto:
+                            text: '21'
+                            on_release: root.buscaQuarto('21')
+                        ButoonQuarto:
+                            text: '22'
+                            on_release: root.buscaQuarto('22')
+                        ButoonQuarto:
+                            text: '23'
+                            on_release: root.buscaQuarto('23')
+                        ButoonQuarto:
+                            text: '24'
+                            on_release: root.buscaQuarto('24')
+                        ButoonQuarto:
+                            text: '25'
+                            on_release: root.buscaQuarto('25')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height:200
+                        ButoonQuarto:
+                            text: '31'
+                            on_release: root.buscaQuarto('31')
+                        ButoonQuarto:
+                            text: '32'
+                            on_release: root.buscaQuarto('32')
+                        ButoonQuarto:
+                            text: '33'
+                            on_release: root.buscaQuarto('33')
+                        ButoonQuarto:
+                            text: '34'
+                            on_release: root.buscaQuarto('34')
+                        ButoonQuarto:
+                            text: '35'
+                            on_release: root.buscaQuarto('35')
+
+<ButoonQuarto@Button>:
+    font_size: 30
 
 
 
@@ -561,8 +760,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -605,7 +804,7 @@
 
 
 
-<Buscar>:
+<Cliente>:
     BoxLayout:
         orientation: 'vertical'
         ActionBar:
@@ -618,8 +817,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'

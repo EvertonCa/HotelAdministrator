@@ -23,11 +23,30 @@ class Cadastrar(Screen):
         texto = self.ids.nome.text
         telefone = self.ids.telefone.text
         cpf = self.ids.cpf.text
+        endeteco = self.ids.endeteco.text
 
-        print(texto + " " + telefone + " " + cpf)
+        print(texto + " " + telefone + " " + cpf + " " + endeteco)
 
         App.get_running_app().root.current = 'menu'
         CustomPopup().call_pops("Pessoa adcionada", "OK")
+
+
+class CadastrarFuncionario(Screen):
+    M = ObjectProperty(True)
+    F = ObjectProperty(False)
+
+    def cadastraFuncionario(self):
+        texto = self.ids.nome.text
+        telefone = self.ids.telefone.text
+        cpf = self.ids.cpf.text
+        endeteco = self.ids.endeteco.text
+        usuario = self.ids.usuario.text
+        senha = self.ids.pwd.text
+
+        print("Funcionario " + texto + " " + telefone + " " + cpf + " " + endeteco + " " + usuario + " " + senha)
+
+        App.get_running_app().root.current = 'menu'
+        CustomPopup().call_pops("Funcionario adcionado", "OK")
 
 
 class Senhas(Screen):
@@ -38,14 +57,14 @@ class Senhas(Screen):
             print("Guiche " + guiche)
 
 
-class Buscar(Screen):
+class Cliente(Screen):
     def buscaNome(self, nome):
         print("Busca o nome "+nome)
 
 
 class Quartos(Screen):
     def buscaQuarto(self, quarto):
-        print("Buscar o quarto " + quarto)
+        print("Pesquisar quarto " + quarto)
 
 
 class Pedidos(Screen):
