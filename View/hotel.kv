@@ -86,42 +86,49 @@
 
 <LoginLayout>:
     BoxLayout:
-        id: login
-        padding: 200
-        spacing: 10
-        orientation: 'vertical'
+        orientation:'vertical'
 
-        BoxLayout:
-            Image:
-                source: 'logo-hotel.png'
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
                 size_hint_y: None
-                height: 200
-                allow_stretch: True
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            LabelPreto:
-                text: 'Login:'
-            TextInput:
-                id: loginText
-                font_size: 16
-                multiline: False
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            LabelPreto:
-                text: 'Senha:'
-            TextInput:
-                id: passwordText
-                multiline: False
-                password: True
+                height: self.minimum_height
+                spacing: 20
+                padding: 100
 
-        Button:
-            size_hint_y: None
-            height: 60
-            font_size: 16
-            text: 'Entrar'
-            on_press: root.verificaLogin(loginText.text,passwordText.text)
+                Image:
+                    source: 'logo-hotel.png'
+                    size_hint_y: None
+                    height: 200
+                    allow_stretch: True
+
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 30
+                    LabelPreto:
+                        text: 'Login:'
+                    TextInput:
+                        id: loginText
+                        font_size: 16
+                        multiline: False
+                BoxLayout:
+                    size_hint_y: None
+                    height: 30
+                    LabelPreto:
+                        text: 'Senha:'
+                    TextInput:
+                        id: passwordText
+                        multiline: False
+                        password: True
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 60
+                    Button:
+                        font_size: 16
+                        text: 'Entrar'
+                        on_press: root.verificaLogin(loginText.text,passwordText.text)
 
 
 <Menu>:
@@ -149,7 +156,7 @@
             BoxLayout:
                 spacing: 30
                 Button:
-                    text: 'Cadastrar'
+                    text: 'Cadastrar Cliente'
                     on_release: app.root.current = 'cadastro'
                 Button:
                     text: 'Check-in'
@@ -273,13 +280,13 @@
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.M
+                                on_active: root.homem(*args)
                             LabelPreto:
                                 text: 'M'
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.F
+                                on_active: root.mulher(*args)
                             LabelPreto:
                                 text: 'F'
 
@@ -290,7 +297,7 @@
                         Button:
                             font_size: 16
                             text: 'OK'
-                            on_release: root.cadastraPessoa()
+                            on_release: root.cadastraPessoa(nome.text, telefone.text, cpf.text, endeteco.text)
 
 
 <CadastrarFuncionario>:
@@ -387,13 +394,13 @@
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.M
+                                on_active: root.homem(*args)
                             LabelPreto:
                                 text: 'M'
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.F
+                                on_active: root.mulher(*args)
                             LabelPreto:
                                 text: 'F'
 
@@ -421,7 +428,7 @@
                         Button:
                             font_size: 16
                             text: 'OK'
-                            on_release: root.cadastraFuncionario()
+                            on_release: root.cadastraFuncionario(nome.text, telefone.text, cpf.text, endeteco.text, usuario.text, pwd.text)
 
 <Pedidos>:
     BoxLayout:

@@ -16,34 +16,47 @@ class Menu(Screen):
 
 
 class Cadastrar(Screen):
-    M = ObjectProperty(True)
-    F = ObjectProperty(False)
+    sexo = True  # Homem é True e mulher é False
 
-    def cadastraPessoa(self):
-        texto = self.ids.nome.text
-        telefone = self.ids.telefone.text
-        cpf = self.ids.cpf.text
-        endeteco = self.ids.endeteco.text
+    def homem(self, *args):
+        global sexo
+        sexo = True
 
-        print(texto + " " + telefone + " " + cpf + " " + endeteco)
+    def mulher(self, *args):
+        global sexo
+        sexo = False
+
+    def cadastraPessoa(self, nome, telefone, cpf, endeteco):
+
+        print(nome + " " + telefone + " " + cpf + " " + endeteco)
+        if sexo:
+            print("homem")
+        else:
+            print("mulher")
 
         App.get_running_app().root.current = 'menu'
         CustomPopup().call_pops("Pessoa adcionada", "OK")
 
 
 class CadastrarFuncionario(Screen):
-    M = ObjectProperty(True)
-    F = ObjectProperty(False)
+    sexo = True # Homem é True e mulher é False
 
-    def cadastraFuncionario(self):
-        texto = self.ids.nome.text
-        telefone = self.ids.telefone.text
-        cpf = self.ids.cpf.text
-        endeteco = self.ids.endeteco.text
-        usuario = self.ids.usuario.text
-        senha = self.ids.pwd.text
+    def homem(self, *args):
+        global sexo
+        sexo = True
 
-        print("Funcionario " + texto + " " + telefone + " " + cpf + " " + endeteco + " " + usuario + " " + senha)
+    def mulher(self, *args):
+        global sexo
+        sexo = False
+
+    def cadastraFuncionario(self, nome, telefone, cpf, endeteco, usuario, senha):
+
+        print("Funcionario " + nome + " " + telefone + " " + cpf + " " + endeteco + " " + usuario + " " + senha)
+
+        if sexo:
+            print("homem")
+        else:
+            print("mulher")
 
         App.get_running_app().root.current = 'menu'
         CustomPopup().call_pops("Funcionario adcionado", "OK")
