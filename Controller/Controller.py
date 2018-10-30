@@ -9,16 +9,18 @@ class Senhas():
         self._funcionario = None
 
     def verificaUserESenha(self):
-        funcionarios = Criador.recuperaFuncionarios()
-        for funcionario in range (funcionarios.tamanho):
-            if self._user == funcionarios.at(funcionario).usuario:
-                if self._password == funcionarios.at(funcionario).senha:
-                    self._funcionario = funcionarios.at(funcionario)
-                    return True
-            return False
+        avl_funcionarios = Criador.recuperaFuncionarios()
+
+        temp = avl_funcionarios.search(avl_funcionarios.raiz, self._user)
+        if temp:
+            funcionario = temp.valor
+            if funcionario.senha == self._password:
+                self._funcionario = funcionario.admin
+                return True
+        return False
 
     def ehAdmin(self):
-        if self._funcionario.admin is True:
+        if self._funcionario is True:
             return True
         else:
             return False
@@ -56,4 +58,4 @@ def pesquisaCliente(nome):
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
-inicializaPrograma(3)
+# inicializaPrograma(3)
