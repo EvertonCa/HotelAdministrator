@@ -26,7 +26,7 @@ class Cliente():
             return NotImplemented
 
     def __eq__(self, other):
-        return self.nome == other
+        return self.nome.lower() == other.lower()
 
     def __ne__(self, other):
         return self.nome != other

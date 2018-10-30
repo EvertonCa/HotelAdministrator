@@ -4,6 +4,7 @@ import Model.Funcionarios
 import Model.Cliente
 import Model.Quarto
 import Utilities.LES
+import Utilities.AVL
 
 
 diretorio_atual = os.getcwd()
@@ -13,8 +14,8 @@ diretorio_files += 'Files/'
 
 def recuperaFuncionarios():
     with open(diretorio_files + 'Funcionarios.pkl', 'rb') as file_input:
-        les_funcionarios = pickle.load(file_input)
-    return les_funcionarios
+        avl_funcionarios = pickle.load(file_input)
+    return avl_funcionarios
 
 
 def recuperaQuartos():
@@ -25,15 +26,15 @@ def recuperaQuartos():
 
 def recuperaClientes():
     with open(diretorio_files + 'Clientes.pkl', 'rb') as file_input:
-        les_clientes = pickle.load(file_input)
-    return les_clientes
+        avl_clientes = pickle.load(file_input)
+    return avl_clientes
 
 
 def salvaFuncionario(funcionario):
-    les_funcionarios = recuperaFuncionarios()
-    les_funcionarios.insert(funcionario)
+    avl_funcionarios = recuperaFuncionarios()
+    avl_funcionarios.insert(funcionario)
     with open(diretorio_files + 'Funcionarios.pkl', 'wb') as file_output:
-        pickle.dump(les_funcionarios, file_output, -1)
+        pickle.dump(avl_funcionarios, file_output, -1)
 
 
 def salvaQuartos(les_quartos):
@@ -42,26 +43,26 @@ def salvaQuartos(les_quartos):
 
 
 def salvaCliente(cliente):
-    les_clientes = recuperaClientes()
-    les_clientes.append(cliente)
+    avl_clientes = recuperaClientes()
+    avl_clientes.insert(cliente)
     with open(diretorio_files + 'Clientes.pkl', 'wb') as file_output:
-        pickle.dump(les_clientes, file_output, -1)
+        pickle.dump(avl_clientes, file_output, -1)
 
 
 def inicialFuncionario():
     admin = Model.Funcionarios.Funcionario('admin', 'admin', True)
-    les_funcionarios = Utilities.LES.LES()
-    les_funcionarios.insert(admin)
+    avl_funcionarios = Utilities.AVL.AVL()
+    avl_funcionarios.insert(admin)
     with open(diretorio_files + 'Funcionarios.pkl', 'wb') as file_output:
-        pickle.dump(les_funcionarios, file_output, -1)
+        pickle.dump(avl_funcionarios, file_output, -1)
 
 
 def inicialCliente():
     cliente = Model.Cliente.Cliente('Nome', 'telefone', 'cpf', 'endereco', 'sexo')
-    les_clientes = Utilities.LES.LES()
-    les_clientes.insert(cliente)
+    avl_clientes = Utilities.AVL.AVL()
+    avl_clientes.insert(cliente)
     with open(diretorio_files + 'Clientes.pkl', 'wb') as file_output:
-        pickle.dump(les_clientes, file_output, -1)
+        pickle.dump(avl_clientes, file_output, -1)
 
 
 def iniciaQuartos(quantidade):
@@ -73,20 +74,36 @@ def iniciaQuartos(quantidade):
         pickle.dump(les_quartos, file_output, -1)
 
 
+# def teste():
+#     with open(diretorio_files + 'Funcionarios.pkl', 'rb') as f:
+#         funcionarios = pickle.load(f)
+#         print(funcionarios.tamanho)
+#         print('Usuario: ' + funcionarios.at(0).usuario + ' e Senha: ' + funcionarios.at(0).senha)
+#         print('Usuario: ' + funcionarios.at(1).usuario + ' e Senha: ' + funcionarios.at(1).senha)
+#     with open(diretorio_files + 'Clientes.pkl', 'rb') as f:
+#         les_clientes = pickle.load(f)
+#         print(les_clientes.tamanho)
+#         print('Nome: ' + les_clientes.at(0).nome + ' e Telefone: ' + les_clientes.at(0).telefone)
+
 def teste():
     with open(diretorio_files + 'Funcionarios.pkl', 'rb') as f:
-        funcionarios = pickle.load(f)
-        print(funcionarios.tamanho)
-        print('Usuario: ' + funcionarios.at(0).usuario + ' e Senha: ' + funcionarios.at(0).senha)
-        print('Usuario: ' + funcionarios.at(1).usuario + ' e Senha: ' + funcionarios.at(1).senha)
+        avl_funcionarios = pickle.load(f)
+        print(avl_funcionarios.tamanho)
+        temp = avl_funcionarios.search(avl_funcionarios.raiz, 'admin')
+        if temp:
+            funcionario = temp.valor
+            print('Usuario: ' + funcionario.usuario + ' e Senha: ' + funcionario.senha)
     with open(diretorio_files + 'Clientes.pkl', 'rb') as f:
-        les_clientes = pickle.load(f)
-        print(les_clientes.tamanho)
-        print('Nome: ' + les_clientes.at(0).nome + ' e Telefone: ' + les_clientes.at(0).telefone)
+        avl_clientes = pickle.load(f)
+        print(avl_clientes.tamanho)
+        temp = avl_clientes.search(avl_clientes.raiz, 'NOME')
+        if temp:
+            cliente = temp.valor
+            print('Nome: ' + cliente.nome + ' e Telefone: ' + cliente.telefone)
 
 
-# #inicialFuncionario()
+# inicialFuncionario()
 # inicialCliente()
-# # func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
-# # salvaFuncionario(func)
+# func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
+# salvaFuncionario(func)
 # teste()

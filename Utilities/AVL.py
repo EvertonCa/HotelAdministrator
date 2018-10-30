@@ -135,16 +135,16 @@ class AVL:
         else:
             ponteiro_apagar.pai.folha_direita = novo_ponteiro
 
-    def _search(self, no, valor):
+    def search(self, no, valor):
         if no is None or no.valor == valor:
             return no
         elif valor > no.valor:
-            return self._search(no.folha_direita, valor)
+            return self.search(no.folha_direita, valor)
         else:
-            return self._search(no.folha_esquerda, valor)
+            return self.search(no.folha_esquerda, valor)
 
     def remove(self, valor):
-        a_remover = self._search(self.raiz, valor)
+        a_remover = self.search(self.raiz, valor)
         if a_remover is None:
             return False
 

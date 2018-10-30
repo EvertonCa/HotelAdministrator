@@ -39,6 +39,16 @@ def inicializaPrograma(quantidadeDeQuartos):
         print('Arquivo Quartos.pkl criado!')
 
 
+def pesquisaCliente(nome):
+    avl_clientes = Criador.recuperaClientes()
+    temp = avl_clientes.search(avl_clientes.raiz, nome)
+    if temp:
+        cliente = temp.valor
+        return cliente
+    else:
+        return None
+
+
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
