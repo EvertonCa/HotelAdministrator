@@ -4,6 +4,7 @@ import Model.Funcionarios
 import Model.Cliente
 import Utilities.LES
 
+
 diretorio_atual = os.getcwd()
 diretorio_files = diretorio_atual[:-10]
 diretorio_files += 'Files/'
@@ -63,8 +64,8 @@ def teste():
         print('Nome: ' + les_clientes.at(0).nome + ' e Telefone: ' + les_clientes.at(0).telefone)
 
 
-#inicialFuncionario()
-inicialCliente()
-# func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
-# salvaFuncionario(func)
-teste()
+# #inicialFuncionario()
+# inicialCliente()
+# # func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
+# # salvaFuncionario(func)
+# teste()
