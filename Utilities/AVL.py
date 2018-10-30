@@ -6,19 +6,19 @@ class AVL:
         self.raiz = None
         self.tamanho = 0
 
-    def _altura(self, no):
-        if no is None:
-            return -1
-        else:
-            altura_esquerda = self._altura(no.folha_esquerda)
-            altura_direita = self._altura(no.folha_direita)
-            if altura_esquerda > altura_direita:
-                no.altura = altura_esquerda + 1
-                return no.altura
-            else:
-                no.altura = altura_direita + 1
-                return no.altura
-
+    # def _altura(self, no):
+    #     if no is None:
+    #         return -1
+    #     else:
+    #         altura_esquerda = self._altura(no.folha_esquerda)
+    #         altura_direita = self._altura(no.folha_direita)
+    #         if altura_esquerda > altura_direita:
+    #             no.altura = altura_esquerda + 1
+    #             return no.altura
+    #         else:
+    #             no.altura = altura_direita + 1
+    #             return no.altura
+    #
     def _fator_balanceamento(self, no):
         if no.folha_direita:
             altura_direita = no.folha_direita.altura
@@ -30,6 +30,26 @@ class AVL:
             altura_esquerda = -1
 
         return altura_direita - altura_esquerda
+
+    def _altura(self, no):
+        if no.folha_direita is None and no.folha_esquerda is None:
+            no.altura = 0
+
+        elif no.folha_esquerda:
+            if no.folha_direita:
+                if no.folha_direita.altura > no.folha_esquerda.altura:
+                    no.altura = no.folha_direita.altura + 1
+                if no.folha_esquerda.altura >= no.folha_direita.altura:
+                    no.altura = no.folha_esquerda.altura + 1
+            else:
+                no.altura = no.folha_esquerda.altura + 1
+        elif no.folha_direita:
+            no.altura = no.folha_direita.altura + 1
+
+    def _recalcular_altura(self, no):
+        while no:
+            self._altura(no)
+            no = no.pai
 
     def _left(self, no):
         if no.folha_direita is None:
@@ -95,19 +115,22 @@ class AVL:
 
     def _balanceia(self, no):
         while no:
-            self._altura(no)
             fb = self._fator_balanceamento(no)
             if fb >= 2:
                 if no.folha_direita and self._fator_balanceamento(no.folha_direita) < 0:
+                    temp = no.folha_direita
                     self._right(no.folha_direita)
-                    self._altura(no)
+                    self._recalcular_altura(temp)
                 self._left(no)
+                self._recalcular_altura(no)
 
             elif fb <= -2:
                 if no.folha_esquerda and self._fator_balanceamento(no.folha_esquerda) > 0:
+                    temp = no.folha_esquerda
                     self._left(no.folha_esquerda)
-                    self._altura(no)
+                    self._recalcular_altura(temp)
                 self._right(no)
+                self._recalcular_altura(no)
 
             no = no.pai
 
@@ -221,6 +244,7 @@ class AVL:
             self.raiz = novo
 
         self.tamanho += 1
+        self._recalcular_altura(novo)
         self._balanceia(novo)
         return True
 
@@ -240,5 +264,5 @@ arvore2.printRED()
 arvore2.remove(0)
 print(" ------- ERD ------- ")
 arvore2.printERD()
-print(" ------- ERD ------- ")
+print(" ------- RED ------- ")
 arvore2.printRED()
