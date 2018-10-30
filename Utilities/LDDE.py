@@ -1,4 +1,5 @@
-import Model.No
+import Utilities.No
+import Model.Cliente
 
 
 class LDDE:
@@ -8,7 +9,7 @@ class LDDE:
         self.ultimo_no = ultimo_no
 
     def insert(self, value):
-        novo = Model.No.No(value)
+        novo = Utilities.No.No(value)
 
         anterior = None
         atual = self.primeiro_no
@@ -73,20 +74,18 @@ class LDDE:
     def print(self):
         andando = self.primeiro_no
         for i in range(self.tamanho_do_ldde):
-            print(andando.valor, end=" ", flush=True)
+            print(andando.valor.nome, end=" ", flush=True)
             andando = andando.proximo
         print("")
 
 
-ldde = LDDE()
-ldde.insert(6)
-ldde.insert(3)
-ldde.insert(8)
-ldde.insert(5)
-ldde.insert(1)
-ldde.insert(4)
-ldde.print()
-ldde.remove(4)
-ldde.print()
-ldde.remove(6)
-ldde.print()
+# ldde = LDDE()
+# cliente1 = Model.Cliente.Cliente('Adamastor', '234567', '65432', 'Rua algo', 'masc')
+# cliente2 = Model.Cliente.Cliente('Jao', '5543', '7656', 'Rua algo2', 'masc')
+# ldde.insert(cliente2)
+# ldde.insert(cliente1)
+# ldde.print()
+# ldde.remove(4)
+# ldde.print()
+# ldde.remove(6)
+# ldde.print()

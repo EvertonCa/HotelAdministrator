@@ -38,17 +38,22 @@ class LES:
             self.tamanho -= 1
             return True
 
+    def at(self, i):
+        if i >= self.tamanho:
+            return None
+        return self.lista[i]
+
     def print(self):
         print(self.lista)
 
 
-les = LES()
-les.insert(4)
-les.print()
-les.insert(7)
-les.print()
-les.insert(2)
-les.print()
-print(les.search(4))
-les.remove(4)
-les.print()
+# les = LES()
+# les.insert(4)
+# les.print()
+# les.insert(7)
+# les.print()
+# les.insert(2)
+# les.print()
+# print(les.search(4))
+# les.remove(4)
+# les.print()

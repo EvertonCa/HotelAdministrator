@@ -1,8 +1,6 @@
-import kivy
-kivy.require("1.9.0")
-
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
+
 
 class RetiraSenhaLayout(GridLayout):
     def novaSenha(self, label, preferencial):
@@ -15,11 +13,12 @@ class RetiraSenhaLayout(GridLayout):
 
         self.display.text = str(i)
 
+
 class HotelApp(App):
 
     def build(self):
         return RetiraSenhaLayout()
 
-calcApp = HotelApp()
-calcApp.run()
+
+HotelApp().run()
 

@@ -1,4 +1,4 @@
-import Model.No
+import Utilities.No
 
 
 class FilaEncadeada:
@@ -8,7 +8,7 @@ class FilaEncadeada:
         self.primeiro_no = primeiro_no
 
     def push(self, value):
-        novo = Model.No.No(value)
+        novo = Utilities.No.No(value)
 
         if novo is None:
             return False
@@ -31,6 +31,13 @@ class FilaEncadeada:
 
         return True
 
+    def top(self):
+        if self.primeiro_no is None:
+            return None
+
+        else:
+            return self.primeiro_no
+
     def print(self):
         aux = self.primeiro_no
         while aux:
@@ -39,15 +46,15 @@ class FilaEncadeada:
         print("")
 
 
-fila = FilaEncadeada()
-fila.push(4)
-fila.push(8)
-fila.push(1)
-fila.push(10)
-fila.push(5)
-fila.push(3)
-fila.print()
-fila.pop()
-fila.print()
-fila.pop()
-fila.print()
+# fila = FilaEncadeada()
+# fila.push(4)
+# fila.push(8)
+# fila.push(1)
+# fila.push(10)
+# fila.push(5)
+# fila.push(3)
+# fila.print()
+# fila.pop()
+# fila.print()
+# fila.pop()
+# fila.print()

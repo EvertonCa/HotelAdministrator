@@ -1,4 +1,4 @@
-import Model.NoArvore
+import Utilities.NoArvore
 
 
 class ArvoreBinaria:
@@ -7,7 +7,7 @@ class ArvoreBinaria:
         self.tamanho = 0
 
     def insert(self, valor):
-        novo = Model.NoArvore.No()
+        novo = Utilities.NoArvore.No()
         atual = self.raiz
         anterior = None
 
@@ -95,22 +95,22 @@ class ArvoreBinaria:
         print("")
 
 
-arvore = ArvoreBinaria()
-arvore.insert(5)
-arvore.insert(8)
-arvore.insert(2)
-arvore.insert(9)
-arvore.insert(1)
-arvore.print()
-arvore.remove(1)
-arvore.print()
-arvore.remove(5)
-arvore.print()
-
-arvoreDeString = ArvoreBinaria()
-arvoreDeString.insert('a')
-arvoreDeString.insert('e')
-arvoreDeString.insert('g')
-arvoreDeString.insert('b')
-arvoreDeString.insert('z')
-arvoreDeString.print()
+# arvore = ArvoreBinaria()
+# arvore.insert(5)
+# arvore.insert(8)
+# arvore.insert(2)
+# arvore.insert(9)
+# arvore.insert(1)
+# arvore.print()
+# arvore.remove(1)
+# arvore.print()
+# arvore.remove(5)
+# arvore.print()
+#
+# arvoreDeString = ArvoreBinaria()
+# arvoreDeString.insert('a')
+# arvoreDeString.insert('e')
+# arvoreDeString.insert('g')
+# arvoreDeString.insert('b')
+# arvoreDeString.insert('z')
+# arvoreDeString.print()
