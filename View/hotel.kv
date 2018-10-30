@@ -595,25 +595,7 @@
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    BoxLayout:
-                        spacing: 20
-                        size_hint_y: None
-                        height: 60
-
-                        LabelPreto:
-                            text: 'Quantidade de pessoas no quarto:'
-
-                        Spinner:
-                            id: numPessIn
-                            text: "0"
-                            values: ["1", "2", "3", "4", "5"]
-                            on_text: root.qtdPessoas(numPessIn.text)
-
-                    BoxLayout:
-                        id: inputNomes
-                        size_hint_y: None
-                        height: self.minimum_height
-                        orientation: 'vertical'
+                    spacing: 20
 
                     BoxLayout:
                         size_hint_y: None
@@ -626,10 +608,20 @@
 
                     BoxLayout:
                         size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Nome:'
+                        TextInput:
+                            id: nomeQuarto
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
                         height: 60
                         Button:
                             text: 'OK'
-                            on_release: root.addPessQuarto(numPessIn.text, numQuarto.text)
+                            on_release: root.addPessQuarto(nomeQuarto.text, numQuarto.text)
 
 
 <Quartos>:
@@ -865,15 +857,3 @@
             ScrollView:
                 BoxLayout:
                     id: blabla
-
-
-<PessoaIn>:
-    size_hint_y: None
-    height: 30
-    LabelPreto:
-        text: 'Nome:'
-        font_size: 30
-
-    TextInput:
-        id: default
-        multiline: False
