@@ -51,37 +51,6 @@
 <LabelPreto@Label>:
     color: (0,0,0,1)
 
-<actionMenu@ActionBar>:
-    ActionBar:
-        ActionView:
-            use_separator: True
-            ActionPrevious:
-                title:'Menu'
-                on_release: app.root.current = 'menu'
-            ActionButton:
-                text: 'Cadastro'
-                on_release: app.root.current = 'cadastro'
-            ActionButton:
-                text: 'Clientes'
-                on_release: app.root.current = 'clientes'
-            ActionButton:
-                text: 'Senhas'
-                on_release: app.root.current = 'senha'
-            ActionButton:
-                text: 'Quartos'
-                on_release: app.root.current = 'quarto'
-            ActionButton:
-                text: 'Pedidos'
-                on_release: app.root.current = 'pedido'
-            ActionButton:
-                text: 'Check-out'
-                on_release: app.root.current = 'out'
-            ActionButton:
-                text: 'Check-in'
-                on_release: app.root.current = 'in'
-            ActionButton:
-                text: 'Sair'
-                on_release: app.stop()
 
 
 <LoginLayout>:
@@ -140,8 +109,8 @@
                 use_separator: True
                 ActionOverflow:
                     ActionButton:
-                        text: 'Login'
-                        on_release: app.root.current = 'logout'
+                        text: 'Logout'
+                        on_release: app.root.current = 'login'
                     ActionButton:
                         text: 'Fechar'
                         on_release: app.stop()
@@ -189,7 +158,6 @@
 <Cadastrar>:
     BoxLayout:
         orientation: 'vertical'
-
         ActionBar:
             ActionView:
                 use_separator: True
@@ -222,13 +190,13 @@
                     on_release: app.stop()
         BoxLayout:
             orientation: 'vertical'
-            padding: 100
 
             ScrollView:
                 BoxLayout:
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
+                    padding: 100
                     spacing: 20
 
                     BoxLayout:
@@ -336,7 +304,6 @@
                     on_release: app.stop()
         BoxLayout:
             orientation: 'vertical'
-            padding: 100
 
             ScrollView:
                 BoxLayout:
@@ -344,6 +311,7 @@
                     size_hint_y: None
                     height: self.minimum_height
                     spacing: 20
+                    padding: 100
 
                     BoxLayout:
                         size_hint_y: None
@@ -526,30 +494,27 @@
         BoxLayout:
             orientation: 'vertical'
             padding: 30
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                LabelPreto:
-                    text: 'Numero do quarto'
-                TextInput:
-                    id: num
-                    multiline: False
-                Button:
-                    text: 'Buscar'
-
             ScrollView:
                 BoxLayout:
-                    id: inputText
+                    orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    orientation: 'vertical'
+                    spacing: 20
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        LabelPreto:
+                            text: 'Numero do quarto'
+                        TextInput:
+                            id: num
+                            multiline: False
 
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                Button:
-                    text: 'Check-Out'
-                    on_release: root.checkout()
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            text: 'Check-Out'
+                            on_release: root.checkout(num.text)
 
 
 
@@ -620,7 +585,7 @@
                         size_hint_y: None
                         height: 60
                         Button:
-                            text: 'OK'
+                            text: 'Check-In'
                             on_release: root.addPessQuarto(nomeQuarto.text, numQuarto.text)
 
 
@@ -657,17 +622,23 @@
                 ActionButton:
                     text: 'Sair'
                     on_release: app.stop()
+
         BoxLayout:
-            spacing: 20
             orientation: 'vertical'
-            padding: 30
+
             ScrollView:
                 BoxLayout:
-                    size_hint_y: None
                     orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+                    padding: 60
+
+
                     BoxLayout:
                         size_hint_y:None
-                        height:200
+                        height: 100
+                        spacing: 20
                         ButoonQuarto:
                             text: '01'
                             on_release: root.buscaQuarto('01')
@@ -686,7 +657,8 @@
 
                     BoxLayout:
                         size_hint_y:None
-                        height:200
+                        height: 100
+                        spacing: 20
                         ButoonQuarto:
                             text: '11'
                             on_release: root.buscaQuarto('11')
@@ -705,7 +677,8 @@
 
                     BoxLayout:
                         size_hint_y:None
-                        height:200
+                        height: 100
+                        spacing: 20
                         ButoonQuarto:
                             text: '21'
                             on_release: root.buscaQuarto('21')
@@ -724,7 +697,8 @@
 
                     BoxLayout:
                         size_hint_y:None
-                        height:200
+                        height: 100
+                        spacing: 20
                         ButoonQuarto:
                             text: '31'
                             on_release: root.buscaQuarto('31')
@@ -856,4 +830,53 @@
 
             ScrollView:
                 BoxLayout:
-                    id: blabla
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+                    padding: 100
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Nome:'
+                        LabelPreto:
+                            id: nome
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Telefone:'
+                        LabelPreto:
+                            id: telefone
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'CPF:'
+                        LabelPreto:
+                            id: cpf
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Endeteco:'
+                        LabelPreto:
+                            id: endeteco
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Sexo:'
+                        LabelPreto:
+                            id: sexo

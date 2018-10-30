@@ -75,9 +75,35 @@ class Cliente(Screen):
         print("Busca o nome "+nome)
 
 
+        self.ids.nome.text = ""
+        self.ids.telefone.text = ""
+        self.ids.cpf.text = ""
+        self.ids.endeteco.text = ""
+        self.ids.sexo.text = ""
+
+
+    def limpaCliete(self):
+        self.ids.nome.text = ""
+        self.ids.telefone.text = ""
+        self.ids.cpf.text = ""
+        self.ids.endeteco.text = ""
+        self.ids.sexo.text = ""
+
+
+
 class Quartos(Screen):
     def buscaQuarto(self, quarto):
         print("Pesquisar quarto " + quarto)
+        numero = int(quarto)
+
+        popup = CustomPopup()
+
+        # procura quarto
+
+
+        popup.call_pops('Quarto: ' + str(numero) +
+                        "\nPessoa: ", 'Ok', 0.4, 0.4)
+
 
 
 class Pedidos(Screen):
@@ -86,8 +112,19 @@ class Pedidos(Screen):
 
 
 class CheckOut(Screen):
-    def checkout(self):
-        print("out")
+    def checkout(self, quarto):
+        popup = CustomPopup()
+        try:
+            numero = int(quarto)
+        except:
+            popup.call_pops('Nao foi entrado um quarto valido', 'Ok')
+            return
+
+        print("out " + str(numero))
+        self.ids.num.text = ""
+
+        App.get_running_app().root.current = 'menu'
+
 
 
 class CheckIn(Screen):
@@ -128,6 +165,8 @@ class LoginLayout(Screen):
 
         if login == "root" and pswd == "toor":
             print("Certo miseravi!")
+            self.ids.loginText.text = ""
+            self.ids.passwordText.text = ""
             App.get_running_app().root.current = 'menu'
         else:
             msgPopUp.call_pops('Errrooou!!', 'Ok')
@@ -138,6 +177,12 @@ class CustomPopup(Popup):
     def call_pops(self, tit, conten):
         cont = Button(text=conten)
         pop = Popup(title=tit, content=cont, size_hint=(None, None), size=(200, 100), auto_dismiss=True)
+        pop.open()
+        cont.bind(on_press=pop.dismiss)
+
+    def call_pops(self, tit, conten, x, y):
+        cont = Button(text=conten)
+        pop = Popup(title=tit, content=cont, size_hint=(x, y), size=(200, 100), auto_dismiss=True)
         pop.open()
         cont.bind(on_press=pop.dismiss)
 
