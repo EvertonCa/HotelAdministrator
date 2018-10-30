@@ -12,43 +12,6 @@ diretorio_files = diretorio_atual[:-10]
 diretorio_files += 'Files/'
 
 
-def recuperaFuncionarios():
-    with open(diretorio_files + 'Funcionarios.pkl', 'rb') as file_input:
-        avl_funcionarios = pickle.load(file_input)
-    return avl_funcionarios
-
-
-def recuperaQuartos():
-    with open(diretorio_files + 'Quartos.pkl', 'rb') as file_input:
-        les_quartos = pickle.load(file_input)
-    return les_quartos
-
-
-def recuperaClientes():
-    with open(diretorio_files + 'Clientes.pkl', 'rb') as file_input:
-        avl_clientes = pickle.load(file_input)
-    return avl_clientes
-
-
-def salvaFuncionario(funcionario):
-    avl_funcionarios = recuperaFuncionarios()
-    avl_funcionarios.insert(funcionario)
-    with open(diretorio_files + 'Funcionarios.pkl', 'wb') as file_output:
-        pickle.dump(avl_funcionarios, file_output, -1)
-
-
-def salvaQuartos(les_quartos):
-    with open(diretorio_files + 'Quartos.pkl', 'wb') as file_output:
-        pickle.dump(les_quartos, file_output, -1)
-
-
-def salvaCliente(cliente):
-    avl_clientes = recuperaClientes()
-    avl_clientes.insert(cliente)
-    with open(diretorio_files + 'Clientes.pkl', 'wb') as file_output:
-        pickle.dump(avl_clientes, file_output, -1)
-
-
 def inicialFuncionario():
     admin = Model.Funcionarios.Funcionario('admin', 'admin', True)
     avl_funcionarios = Utilities.AVL.AVL()
@@ -65,6 +28,12 @@ def inicialCliente():
         pickle.dump(avl_clientes, file_output, -1)
 
 
+def inicialPedidos():
+    les_pedidos = Utilities.LES.LES()
+    with open(diretorio_files + 'Pedidos.pkl', 'wb') as file_output:
+        pickle.dump(les_pedidos, file_output, -1)
+
+
 def iniciaQuartos(quantidade):
     les_quartos = Utilities.LES.LES()
     for i in range(quantidade):
@@ -72,6 +41,56 @@ def iniciaQuartos(quantidade):
         les_quartos.insert(quarto)
     with open(diretorio_files + 'Quartos.pkl', 'wb') as file_output:
         pickle.dump(les_quartos, file_output, -1)
+
+
+def salvaFuncionario(funcionario):
+    avl_funcionarios = recuperaFuncionarios()
+    avl_funcionarios.insert(funcionario)
+    with open(diretorio_files + 'Funcionarios.pkl', 'wb') as file_output:
+        pickle.dump(avl_funcionarios, file_output, -1)
+
+
+def salvaPedido(pedido):
+    les_pedidos = recuperaPedidos()
+    les_pedidos.insert(pedido)
+    with open(diretorio_files + 'Pedidos.pkl', 'wb') as file_output:
+        pickle.dump(les_pedidos, file_output, -1)
+
+
+def salvaQuartos(les_quartos):
+    with open(diretorio_files + 'Quartos.pkl', 'wb') as file_output:
+        pickle.dump(les_quartos, file_output, -1)
+
+
+def salvaCliente(cliente):
+    avl_clientes = recuperaClientes()
+    avl_clientes.insert(cliente)
+    with open(diretorio_files + 'Clientes.pkl', 'wb') as file_output:
+        pickle.dump(avl_clientes, file_output, -1)
+
+
+def recuperaFuncionarios():
+    with open(diretorio_files + 'Funcionarios.pkl', 'rb') as file_input:
+        avl_funcionarios = pickle.load(file_input)
+    return avl_funcionarios
+
+
+def recuperaPedidos():
+    with open(diretorio_files + 'Pedidos.pkl', 'rb') as file_input:
+        les_pedidos = pickle.load(file_input)
+    return les_pedidos
+
+
+def recuperaQuartos():
+    with open(diretorio_files + 'Quartos.pkl', 'rb') as file_input:
+        les_quartos = pickle.load(file_input)
+    return les_quartos
+
+
+def recuperaClientes():
+    with open(diretorio_files + 'Clientes.pkl', 'rb') as file_input:
+        avl_clientes = pickle.load(file_input)
+    return avl_clientes
 
 
 # def teste():
