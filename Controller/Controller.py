@@ -36,7 +36,7 @@ def inicializaPrograma(quantidadeDeQuartos):
         print('Arquivo Clientes.pkl criado!')
     if arquivo_quartos.is_file() is False:
         Criador.iniciaQuartos(quantidadeDeQuartos)
-        print('Arquivo Quartos.pkl criado!')
+        print('Arquivo Quartos.pkl criado com ' + str(quantidadeDeQuartos) + ' quartos!')
 
 
 def pesquisaCliente(nome):
