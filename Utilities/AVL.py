@@ -6,19 +6,6 @@ class AVL:
         self.raiz = None
         self.tamanho = 0
 
-    # def _altura(self, no):
-    #     if no is None:
-    #         return -1
-    #     else:
-    #         altura_esquerda = self._altura(no.folha_esquerda)
-    #         altura_direita = self._altura(no.folha_direita)
-    #         if altura_esquerda > altura_direita:
-    #             no.altura = altura_esquerda + 1
-    #             return no.altura
-    #         else:
-    #             no.altura = altura_direita + 1
-    #             return no.altura
-    #
     def _fator_balanceamento(self, no):
         if no.folha_direita:
             altura_direita = no.folha_direita.altura
@@ -249,20 +236,20 @@ class AVL:
         return True
 
 
-arvore2 = AVL()
-arvore2.insert(1)
-arvore2.insert(99)
-arvore2.insert(88)
-arvore2.insert(-5)
-arvore2.insert(0)
-arvore2.insert(-7)
-print(" ------- ERD ------- ")
-arvore2.printERD()
-print(" ------- RED ------- ")
-arvore2.printRED()
-
-arvore2.remove(0)
-print(" ------- ERD ------- ")
-arvore2.printERD()
-print(" ------- RED ------- ")
-arvore2.printRED()
+# arvore2 = AVL()
+# arvore2.insert(1)
+# arvore2.insert(99)
+# arvore2.insert(88)
+# arvore2.insert(-5)
+# arvore2.insert(0)
+# arvore2.insert(-7)
+# print(" ------- ERD ------- ")
+# arvore2.printERD()
+# print(" ------- RED ------- ")
+# arvore2.printRED()
+#
+# arvore2.remove(0)
+# print(" ------- ERD ------- ")
+# arvore2.printERD()
+# print(" ------- RED ------- ")
+# arvore2.printRED()

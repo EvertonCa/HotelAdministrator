@@ -79,12 +79,12 @@ class LDDE:
         print("")
 
 
-ldde = LDDE()
-cliente1 = Model.Cliente.Cliente('Adamastor', '234567', '65432', 'Rua algo', 'masc')
-cliente2 = Model.Cliente.Cliente('Jao', '5543', '7656', 'Rua algo2', 'masc')
-ldde.insert(cliente2)
-ldde.insert(cliente1)
-ldde.print()
+# ldde = LDDE()
+# cliente1 = Model.Cliente.Cliente('Adamastor', '234567', '65432', 'Rua algo', 'masc')
+# cliente2 = Model.Cliente.Cliente('Jao', '5543', '7656', 'Rua algo2', 'masc')
+# ldde.insert(cliente2)
+# ldde.insert(cliente1)
+# ldde.print()
 # ldde.remove(4)
 # ldde.print()
 # ldde.remove(6)
