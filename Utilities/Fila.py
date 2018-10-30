@@ -31,6 +31,13 @@ class FilaEncadeada:
 
         return True
 
+    def top(self):
+        if self.primeiro_no is None:
+            return None
+
+        else:
+            return self.primeiro_no
+
     def print(self):
         aux = self.primeiro_no
         while aux:
