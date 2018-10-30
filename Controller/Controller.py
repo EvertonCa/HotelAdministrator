@@ -24,18 +24,22 @@ class Senhas():
             return False
 
 
-def inicializaPrograma():
+def inicializaPrograma(quantidadeDeQuartos):
     arquivo_funcionarios = Path(Criador.diretorio_files + 'Funcionarios.pkl')
     arquivo_clientes = Path(Criador.diretorio_files + 'Clientes.pkl')
+    arquivo_quartos = Path(Criador.diretorio_files + 'Quartos.pkl')
     if arquivo_funcionarios.is_file() is False:
         Criador.inicialFuncionario()
         print('Arquivo Funcionarios.pkl criado!')
     if arquivo_clientes.is_file() is False:
         Criador.inicialCliente()
         print('Arquivo Clientes.pkl criado!')
+    if arquivo_quartos.is_file() is False:
+        Criador.iniciaQuartos(quantidadeDeQuartos)
+        print('Arquivo Quartos.pkl criado!')
 
 
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
-# inicializaPrograma()
+inicializaPrograma(3)

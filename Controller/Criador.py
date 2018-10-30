@@ -2,6 +2,7 @@ import os
 import pickle
 import Model.Funcionarios
 import Model.Cliente
+import Model.Quarto
 import Utilities.LES
 
 
@@ -16,6 +17,12 @@ def recuperaFuncionarios():
     return les_funcionarios
 
 
+def recuperaQuartos():
+    with open(diretorio_files + 'Quartos.pkl', 'rb') as file_input:
+        les_quartos = pickle.load(file_input)
+    return les_quartos
+
+
 def recuperaClientes():
     with open(diretorio_files + 'Clientes.pkl', 'rb') as file_input:
         les_clientes = pickle.load(file_input)
@@ -27,6 +34,11 @@ def salvaFuncionario(funcionario):
     les_funcionarios.insert(funcionario)
     with open(diretorio_files + 'Funcionarios.pkl', 'wb') as file_output:
         pickle.dump(les_funcionarios, file_output, -1)
+
+
+def salvaQuartos(les_quartos):
+    with open(diretorio_files + 'Quartos.pkl', 'wb') as file_output:
+        pickle.dump(les_quartos, file_output, -1)
 
 
 def salvaCliente(cliente):
@@ -50,6 +62,15 @@ def inicialCliente():
     les_clientes.insert(cliente)
     with open(diretorio_files + 'Clientes.pkl', 'wb') as file_output:
         pickle.dump(les_clientes, file_output, -1)
+
+
+def iniciaQuartos(quantidade):
+    les_quartos = Utilities.LES.LES()
+    for i in range(quantidade):
+        quarto = Model.Quarto.Quarto(i+1)
+        les_quartos.insert(quarto)
+    with open(diretorio_files + 'Quartos.pkl', 'wb') as file_output:
+        pickle.dump(les_quartos, file_output, -1)
 
 
 def teste():
