@@ -8,7 +8,7 @@ import Utilities.AVL
 
 
 diretorio_atual = os.getcwd()
-diretorio_files = diretorio_atual[:-10]
+diretorio_files = diretorio_atual[:-4]
 diretorio_files += 'Files/'
 
 
@@ -126,3 +126,5 @@ def teste():
 # func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
 # salvaFuncionario(func)
 # teste()
+
+# print(diretorio_atual)
