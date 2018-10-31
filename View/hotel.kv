@@ -285,44 +285,6 @@
                     spacing: 20
                     padding: 100
 
-                    BoxLayout:
-                        size_hint_y: None
-                        height: 40
-                        LabelPreto:
-                            text: 'Nome:'
-                        TextInput:
-                            id: nome
-                            font_size: 16
-                            multiline: False
-
-                    BoxLayout:
-                        size_hint_y: None
-                        height: 40
-                        LabelPreto:
-                            text: 'Telefone:'
-                        TextInput:
-                            id: telefone
-                            font_size: 16
-                            multiline: False
-
-                    BoxLayout:
-                        size_hint_y: None
-                        height: 40
-                        LabelPreto:
-                            text: 'CPF:'
-                        TextInput:
-                            id: cpf
-                            font_size: 16
-                            multiline: False
-
-                    BoxLayout:
-                        size_hint_y: None
-                        height: 40
-                        LabelPreto:
-                            text: 'Endereco:'
-                        TextInput:
-                            id: endeteco
-                            font_size: 16
 
                     BoxLayout:
                         size_hint_y: None
@@ -333,16 +295,16 @@
                         BoxLayout:
                             CheckBox:
                                 color: 0, 0, 0, 1
-                                group: "sexo_pessoa"
-                                on_active: root.homem(*args)
+                                group: "adm"
+                                on_active: root.adiministrador(*args)
                             LabelPreto:
-                                text: 'M'
+                                text: 'adiministrador'
                             CheckBox:
                                 color: 0, 0, 0, 1
-                                group: "sexo_pessoa"
-                                on_active: root.mulher(*args)
+                                group: "adm"
+                                on_active: root.normal(*args)
                             LabelPreto:
-                                text: 'F'
+                                text: 'Normal'
 
                     BoxLayout:
                         size_hint_y: None
@@ -368,7 +330,7 @@
                         Button:
                             font_size: 16
                             text: 'OK'
-                            on_release: root.cadastraFuncionario(nome.text, telefone.text, cpf.text, endeteco.text, usuario.text, pwd.text)
+                            on_release: root.cadastraFuncionario(usuario.text, pwd.text)
 
 <Pedidos>:
     BoxLayout:

@@ -6,7 +6,7 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from Controller import *
 from Criador import *
-from Model.Funcionarios import *
+from Funcionarios import *
 from Model.Cliente import *
 from Model.Pedido import *
 from Model.Quarto import *
@@ -44,34 +44,36 @@ class Cadastrar(Screen):
             genero = "feminino"
 
 
-#        salvaCliente(Cliente(nome, telefone, cpf, endeteco, genero))
+        salvaCliente(Cliente(nome, telefone, cpf, endeteco, genero))
 
         App.get_running_app().root.current = 'menu'
         CustomPopup().call_pops("Pessoa adcionada", "OK", 0.25, 0.25)
 
 
 class CadastrarFuncionario(Screen):
-    sexo = True # Homem é True e mulher é False
+    adm = False #
+    def adiministrador(self, *args):
+        global adm
+        adm = True
 
-    def homem(self, *args):
-        global sexo
-        sexo = True
+    def normal(self, *args):
+        global adm
+        adm = False
 
-    def mulher(self, *args):
-        global sexo
-        sexo = False
+    def cadastraFuncionario(self, usuario, senha):
 
-    def cadastraFuncionario(self, nome, telefone, cpf, endeteco, usuario, senha):
+        print("Funcionario " + usuario + " " + senha)
 
-        print("Funcionario " + nome + " " + telefone + " " + cpf + " " + endeteco + " " + usuario + " " + senha)
+        if usuario is "" or senha is "":
+            CustomPopup().call_pops("Preencha tudo!", "Ok", 0.25, 0.25)
+            return
 
-        if sexo:
-            print("homem")
-        else:
-            print("mulher")
+
+        salvaFuncionario(Funcionario(usuario, senha, adm))
+
 
         App.get_running_app().root.current = 'menu'
-        CustomPopup().call_pops("Funcionario adcionado", "OK")
+        CustomPopup().call_pops("Funcionario adcionado", "OK", 0.25, 0.25)
 
 
 class Senha(Screen):
@@ -86,12 +88,17 @@ class Clientes(Screen):
     def buscaNome(self, nome):
         print("Busca o nome "+nome)
 
+        cliente = pesquisaCliente(nome)
 
-        self.ids.nome.text = ""
-        self.ids.telefone.text = ""
-        self.ids.cpf.text = ""
-        self.ids.endeteco.text = ""
-        self.ids.sexo.text = ""
+        if cliente is None:
+            CustomPopup().call_pops("Nao encontrado", "ok", 0.25, 0.25)
+            return
+
+        self.ids.nome.text = str(cliente.nome)
+        self.ids.telefone.text = str(cliente.telefone)
+        self.ids.cpf.text = str(cliente.cpf)
+        self.ids.endeteco.text = str(cliente.endereco)
+        self.ids.sexo.text = str(cliente.sexo)
 
 
     def limpaCliete(self):
@@ -111,10 +118,25 @@ class Quartos(Screen):
         popup = CustomPopup()
 
         # procura quarto
+        les_quartos = recuperaQuartos()
+        quarto = les_quartos.at(numero-1)
+
+        if quarto.valor_diaria is None:
+            popup.call_pops("Nao tem ninguem no quarto"+str(quarto.numero), "Ok", 0.25, 0.25)
+            return
+
+        mensagem = 'Quarto: ' + str(numero) +\
+                   "\nEstadia: " + str(quarto.tempo_estadia) +\
+                   "\nDiaria: " + str(quarto.valor_diaria) + "Pessoas:\n"
+
+        andando = quarto.clientes.primeiro_no
+
+        for i in range(quarto.clientes.tamanho_do_ldde):
+            mensagem += str(andando.valor.nome) + "\n"
+            andando = andando.proximo
 
 
-        popup.call_pops('Quarto: ' + str(numero) +
-                        "\nPessoa: ", 'Ok', 0.4, 0.4)
+        popup.call_pops(mensagem, 'Ok', 0.5, 0.5)
 
 
 
@@ -132,12 +154,12 @@ class CheckOut(Screen):
         try:
             numero = int(quarto)
         except:
-            popup.call_pops('Nao foi entrado um quarto valido', 'Ok')
+            popup.call_pops('Nao foi entrado um quarto valido', 'Ok', 0.25, 0.25)
             return
 
         les_quartos = recuperaQuartos()
 
-        if les_quartos.at(numero).valor_diaria is None:
+        if les_quartos.at(numero-1).valor_diaria is None:
             popup.call_pops("Nao tem ninguem no quarto " + quarto)
             return
 
@@ -152,7 +174,7 @@ class CheckIn(Screen):
     def addPessQuarto(self, nome, quarto, dias, diaria):
         popup = CustomPopup()
         if nome is "" or quarto is "" or dias is "" or diaria is "":
-            popup.call_pops('Nao foi preenchido todos os itens', 'Ok')
+            popup.call_pops('Nao foi preenchido todos os itens', 'Ok', 0.25, 0.25)
             return
 
 
@@ -161,12 +183,12 @@ class CheckIn(Screen):
             qtdDias = int(dias)
             precoDia = int(diaria)
         except:
-            popup.call_pops("Quarto, dias e diaria tem que ser um numero!", 'Ok')
+            popup.call_pops("Quarto, dias e diaria tem que ser um numero!", 'Ok', 0.25, 0.25)
             return
 
         # verifica se o quarto existe no hotel
         if numero < 1 or numero > 20:
-            popup.call_pops('So existe quartos de 1 a 20', 'Ok')
+            popup.call_pops('So existe quartos de 1 a 20', 'Ok', 0.25, 0.25)
             return
 
         # busca cliente
@@ -179,9 +201,9 @@ class CheckIn(Screen):
         # vincula o quarto a pessoa
         les_quartos = recuperaQuartos()
 
-        les_quartos.at(numero).adicionaCliente(cliente)
-        les_quartos.at(numero).definirValorDiaria(precoDia)
-        les_quartos.at(numero).definirTempoDeEstadia(qtdDias)
+        les_quartos.at(numero-1).adicionaCliente(cliente)
+        les_quartos.at(numero-1).definirValorDiaria(precoDia)
+        les_quartos.at(numero-1).definirTempoDeEstadia(qtdDias)
 
 
         print(nome + " " + quarto)
