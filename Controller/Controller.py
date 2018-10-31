@@ -1,5 +1,9 @@
+import os
 import Criador
 from pathlib import Path
+
+
+diretorio_files = Criador.diretorio_files
 
 
 class Senhas():
@@ -9,7 +13,7 @@ class Senhas():
         self._funcionario = None
 
     def verificaUserESenha(self):
-        avl_funcionarios = Criador.recuperaFuncionarios()
+        avl_funcionarios = Criador.recuperaFuncionarios(diretorio_files)
 
         temp = avl_funcionarios.search(avl_funcionarios.raiz, self._user)
         if temp:
@@ -26,27 +30,27 @@ class Senhas():
             return False
 
 
-def inicializaPrograma(quantidadeDeQuartos):
-    arquivo_funcionarios = Path(Criador.diretorio_files + 'Funcionarios.pkl')
-    arquivo_clientes = Path(Criador.diretorio_files + 'Clientes.pkl')
-    arquivo_quartos = Path(Criador.diretorio_files + 'Quartos.pkl')
-    arquivo_pedidos = Path(Criador.diretorio_files + 'Pedidos.pkl')
+def inicializaPrograma(quantidadeDeQuartos, diretorio=diretorio_files):
+    arquivo_funcionarios = Path(diretorio + 'Funcionarios.pkl')
+    arquivo_clientes = Path(diretorio + 'Clientes.pkl')
+    arquivo_quartos = Path(diretorio + 'Quartos.pkl')
+    arquivo_pedidos = Path(diretorio + 'Pedidos.pkl')
     if arquivo_funcionarios.is_file() is False:
-        Criador.inicialFuncionario()
+        Criador.inicialFuncionario(diretorio)
         print('Arquivo Funcionarios.pkl criado!')
     if arquivo_clientes.is_file() is False:
-        Criador.inicialCliente()
+        Criador.inicialCliente(diretorio)
         print('Arquivo Clientes.pkl criado!')
     if arquivo_pedidos.is_file() is False:
-        Criador.inicialPedidos()
+        Criador.inicialPedidos(diretorio)
         print('Arquivo Pedidos.pkl criado!')
     if arquivo_quartos.is_file() is False:
-        Criador.iniciaQuartos(quantidadeDeQuartos)
+        Criador.iniciaQuartos(quantidadeDeQuartos, diretorio)
         print('Arquivo Quartos.pkl criado com ' + str(quantidadeDeQuartos) + ' quartos!')
 
 
 def pesquisaCliente(nome):
-    avl_clientes = Criador.recuperaClientes()
+    avl_clientes = Criador.recuperaClientes(diretorio_files)
     temp = avl_clientes.search(avl_clientes.raiz, nome)
     if temp:
         cliente = temp.valor
