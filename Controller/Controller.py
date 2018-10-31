@@ -35,6 +35,7 @@ def inicializaPrograma(quantidadeDeQuartos, diretorio=diretorio_files):
     arquivo_clientes = Path(diretorio + '/Clientes.pkl')
     arquivo_quartos = Path(diretorio + '/Quartos.pkl')
     arquivo_pedidos = Path(diretorio + '/Pedidos.pkl')
+    arquivo_senha = Path(diretorio + '/SenhasNormais.pkl')
     if arquivo_funcionarios.is_file() is False:
         Criador.inicialFuncionario(diretorio)
         print('Arquivo Funcionarios.pkl criado!')
@@ -47,6 +48,9 @@ def inicializaPrograma(quantidadeDeQuartos, diretorio=diretorio_files):
     if arquivo_quartos.is_file() is False:
         Criador.iniciaQuartos(quantidadeDeQuartos, diretorio)
         print('Arquivo Quartos.pkl criado com ' + str(quantidadeDeQuartos) + ' quartos!')
+    if arquivo_senha.is_file() is False:
+        Criador.iniciaSenhas(diretorio)
+        print('Arquivo SenhasNormais.pkl e SenhasPrioritarias.pkl criados!')
 
 
 def pesquisaCliente(nome):
@@ -62,4 +66,4 @@ def pesquisaCliente(nome):
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
-# inicializaPrograma(3)
+inicializaPrograma(3)

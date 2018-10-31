@@ -5,6 +5,7 @@ import Model.Cliente
 import Model.Quarto
 import Utilities.LES
 import Utilities.AVL
+import Utilities.Fila
 
 
 os.chdir('./Files/')
@@ -42,6 +43,15 @@ def iniciaQuartos(quantidade, diretorio=diretorio_files):
         pickle.dump(les_quartos, file_output, -1)
 
 
+def iniciaSenhas(diretorio=diretorio_files):
+    fila_senhas_prioritarias = Utilities.Fila.FilaEncadeada()
+    fila_senhas_normais = Utilities.Fila.FilaEncadeada()
+    with open(diretorio + '/SenhasNormais.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_normais, file_output, -1)
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_prioritarias, file_output, -1)
+
+
 def salvaFuncionario(funcionario, diretorio=diretorio_files):
     avl_funcionarios = recuperaFuncionarios()
     avl_funcionarios.insert(funcionario)
@@ -68,6 +78,20 @@ def salvaCliente(cliente, diretorio=diretorio_files):
         pickle.dump(avl_clientes, file_output, -1)
 
 
+def salvaSenhaNormal(senha, diretorio=diretorio_files):
+    fila_senhas_normais = recuperaSenhasNormais()
+    fila_senhas_normais.push(senha)
+    with open(diretorio + '/SenhasNormais.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_normais, file_output, -1)
+
+
+def salvaSenhaPrioritaria(senha, diretorio=diretorio_files):
+    fila_senhas_prioritarias = recuperaSenhasNormais()
+    fila_senhas_prioritarias.push(senha)
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_prioritarias, file_output, -1)
+
+
 def recuperaFuncionarios(diretorio=diretorio_files):
     with open(diretorio + '/Funcionarios.pkl', 'rb') as file_input:
         avl_funcionarios = pickle.load(file_input)
@@ -90,6 +114,18 @@ def recuperaClientes(diretorio=diretorio_files):
     with open(diretorio + '/Clientes.pkl', 'rb') as file_input:
         avl_clientes = pickle.load(file_input)
     return avl_clientes
+
+
+def recuperaSenhasNormais(diretorio=diretorio_files):
+    with open(diretorio + '/SenhasNormais.pkl', 'rb') as file_input:
+        fila_senhas_normais = pickle.load(file_input)
+    return fila_senhas_normais
+
+
+def recuperaSenhasPrioritarias(diretorio=diretorio_files):
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'rb') as file_input:
+        fila_senhas_prioritarias = pickle.load(file_input)
+    return fila_senhas_prioritarias
 
 
 # def teste():
@@ -118,10 +154,16 @@ def teste(diretorio=diretorio_files):
         if temp:
             cliente = temp.valor
             print('Nome: ' + cliente.nome + ' e Telefone: ' + cliente.telefone)
+        temp = avl_clientes.search(avl_clientes.raiz, 'ghjnb')
+        if temp:
+            cliente = temp.valor
+            print('Nome: ' + cliente.nome + ' e Telefone: ' + cliente.telefone)
 
 
 # inicialFuncionario()
 # inicialCliente()
 # func = Model.Funcionarios.Funcionario('fulanildo', '1234567', False)
 # salvaFuncionario(func)
+# cliente = Model.Cliente.Cliente('ghjnb', 'vfghj', 'vfghj', 'vghjn', 'vfgh')
+# salvaCliente(cliente)
 # teste()
