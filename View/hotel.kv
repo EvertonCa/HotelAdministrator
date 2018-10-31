@@ -369,26 +369,45 @@
 
         BoxLayout:
             orientation: 'vertical'
-            padding: 30
-            spacing: 20
-            BoxLayout:
-                spacing: 20
-                size_hint_y: None
-                height: 60
-                LabelPreto:
-                    text: 'Pedido:'
-                TextInput:
-                    id: txtPedido
-                Button:
-                    text: 'Adicionar'
-                    on_release: root.addPedidos(txtPedido.text)
 
             ScrollView:
                 BoxLayout:
-                    id: blabla
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
+                    spacing: 20
+                    padding: 100
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        LabelPreto:
+                            text: 'Pedido:'
+                        TextInput:
+                            id: txtPedido
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        LabelPreto:
+                            text: 'Preco:'
+                        TextInput:
+                            id: preco
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        LabelPreto:
+                            text: 'Quarto:'
+                        TextInput:
+                            id: quarto
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 45
+                        Button:
+                            text: 'Adicionar'
+                            on_release: root.addPedidos(txtPedido.text, quarto.text, preco.text)
+
 
 
 <CheckOut>:

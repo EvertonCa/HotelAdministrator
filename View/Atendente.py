@@ -142,8 +142,28 @@ class Quartos(Screen):
 
 
 class Pedidos(Screen):
-    def addPedidos(self, pedido, quarto):
-        print("Adiciona pedido " + pedido)
+    def addPedidos(self, pedido, quarto, preco):
+        if pedido is "" or quarto is "":
+            CustomPopup().call_pops("Preencha tudo!", "Ok", 0.25, 0.25)
+            return
+
+        try:
+            numero = int(quarto)
+            custo = float(preco)
+            if numero < 1 or numero > 20:
+                CustomPopup().call_pops("Quartos de 1 a 20", "Ok", 0.25, 0.25)
+        except:
+            CustomPopup().call_pops("Preencha um numero valido", "Ok", 0.25, 0.25)
+            return
+
+        les = recuperaQuartos()
+
+        les.at(numero-1).adicionaPedido(Pedido(pedido, custo))
+
+        salvaQuartos(les)
+
+        App.get_running_app().root.current = 'menu'
+
 
 
 class CheckOut(Screen):
