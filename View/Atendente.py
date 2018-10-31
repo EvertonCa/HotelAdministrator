@@ -6,20 +6,23 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from Controller import *
 from Criador import *
-from Funcionarios import *
-from Model.Cliente import *
+import Model.Cliente
+import Model.Funcionarios
 from Model.Pedido import *
 from Model.Quarto import *
+import os
 
-
+# os.chdir('./Files')
+# diretorio_files = os.getcwd()
 
 class Gerenciador(ScreenManager):
     pass
 
 
 class Menu(Screen):
+    # def admin(self):
+    #     return str(funcionarioLog)
     pass
-
 
 class Cadastrar(Screen):
     sexo = True  # Homem é True e mulher é False
@@ -43,8 +46,8 @@ class Cadastrar(Screen):
         else:
             genero = "feminino"
 
-
-        salvaCliente(Cliente(nome, telefone, cpf, endeteco, genero))
+        cliente = Model.Cliente.Cliente(nome, telefone, cpf, endeteco, genero)
+        salvaCliente(cliente)
 
         App.get_running_app().root.current = 'menu'
         CustomPopup().call_pops("Pessoa adcionada", "OK", 0.25, 0.25)
@@ -69,8 +72,8 @@ class CadastrarFuncionario(Screen):
             CustomPopup().call_pops("Preencha tudo!", "Ok", 0.25, 0.25)
             return
 
-
-        salvaFuncionario(Funcionario(usuario, senha, adm))
+        funcionario = Model.Funcionarios.Funcionario(usuario, senha, adm)
+        salvaFuncionario(funcionario)
 
 
         App.get_running_app().root.current = 'menu'
@@ -245,6 +248,8 @@ class LoginLayout(Screen):
         senha.setPassword(pswd)
 
         if senha.verificaUserESenha() is True:
+            global funcionarioLog
+            funcionarioLog = senha.ehAdmin()
             print("Certo miseravi!")
             self.ids.loginText.text = ""
             self.ids.passwordText.text = ""
@@ -268,11 +273,12 @@ class Hotel(App):
         Window.clearcolor = (1, 1, 1, 1)
         return Gerenciador()
 
-
+print(os.getcwd())
+print(diretorio_files)
 inicializaPrograma(20)
 senha = Senhas('bla', 'bla')
 
 Hotel().run()
 
-#print(Criador.diretorio_atual)
+# print(Criador.diretorio_atual)
 

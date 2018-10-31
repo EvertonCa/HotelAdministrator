@@ -37,10 +37,10 @@ class Senhas():
 
 
 def inicializaPrograma(quantidadeDeQuartos, diretorio=diretorio_files):
-    arquivo_funcionarios = Path(diretorio + 'Funcionarios.pkl')
-    arquivo_clientes = Path(diretorio + 'Clientes.pkl')
-    arquivo_quartos = Path(diretorio + 'Quartos.pkl')
-    arquivo_pedidos = Path(diretorio + 'Pedidos.pkl')
+    arquivo_funcionarios = Path(diretorio + '/Funcionarios.pkl')
+    arquivo_clientes = Path(diretorio + '/Clientes.pkl')
+    arquivo_quartos = Path(diretorio + '/Quartos.pkl')
+    arquivo_pedidos = Path(diretorio + '/Pedidos.pkl')
     if arquivo_funcionarios.is_file() is False:
         Criador.inicialFuncionario(diretorio)
         print('Arquivo Funcionarios.pkl criado!')
