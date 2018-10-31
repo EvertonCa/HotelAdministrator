@@ -67,7 +67,7 @@ class CadastrarFuncionario(Screen):
         CustomPopup().call_pops("Funcionario adcionado", "OK")
 
 
-class Senhas(Screen):
+class Senha(Screen):
     def proximaSenha(self, guiche, prioritaria):
         if prioritaria:
             print("Prioritaria guiche " + guiche)
@@ -169,7 +169,7 @@ class LoginLayout(Screen):
         senha.setUser(login)
         senha.setPassword(pswd)
 
-        if senha.verificaUserESenha is True:
+        if senha.verificaUserESenha() is True:
             print("Certo miseravi!")
             self.ids.loginText.text = ""
             self.ids.passwordText.text = ""
@@ -180,13 +180,7 @@ class LoginLayout(Screen):
 
 
 class CustomPopup(Popup):
-    def call_pops(self, tit, conten):
-        cont = Button(text=conten)
-        pop = Popup(title=tit, content=cont, size_hint=(None, None), size=(200, 100), auto_dismiss=True)
-        pop.open()
-        cont.bind(on_press=pop.dismiss)
-
-    def call_pops(self, tit, conten, x, y):
+    def call_pops(self, tit, conten, x=None, y=None):
         cont = Button(text=conten)
         pop = Popup(title=tit, content=cont, size_hint=(x, y), size=(200, 100), auto_dismiss=True)
         pop.open()
@@ -200,9 +194,7 @@ class Hotel(App):
         return Gerenciador()
 
 
-inicializaPrograma(20)
-senha = Senhas()
-
+senha = Senhas('bla', 'bla')
 
 Hotel().run()
 

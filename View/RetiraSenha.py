@@ -14,11 +14,11 @@ class RetiraSenhaLayout(GridLayout):
         self.display.text = str(i)
 
 
-class HotelApp(App):
+class senhaApp(App):
 
     def build(self):
         return RetiraSenhaLayout()
 
 
-HotelApp().run()
+senhaApp().run()
 

@@ -8,6 +8,12 @@ class Senhas():
         self._password = password
         self._funcionario = None
 
+    def setUser(self, user):
+        self._user = user
+
+    def setPassword(self, password):
+        self._password = password
+
     def verificaUserESenha(self):
         avl_funcionarios = Criador.recuperaFuncionarios()
 
@@ -55,7 +61,7 @@ def pesquisaCliente(nome):
         return None
 
 
+# inicializaPrograma(20)
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
-inicializaPrograma(3)
