@@ -126,31 +126,42 @@ class Pedidos(Screen):
 class CheckOut(Screen):
     def checkout(self, quarto):
         popup = CustomPopup()
+
+        self.ids.num.text = ""
+
         try:
             numero = int(quarto)
         except:
             popup.call_pops('Nao foi entrado um quarto valido', 'Ok')
             return
 
-        print("out " + str(numero))
-        self.ids.num.text = ""
+        les_quartos = recuperaQuartos()
+
+        if les_quartos.at(numero).valor_diaria is None:
+            popup.call_pops("Nao tem ninguem no quarto " + quarto)
+            return
+
+        popup.call_pops("Valor total a pagar: " + str(les_quartos.at(numero).fazerCheckout()), "Pagar", 0.25, 0.25)
+
 
         App.get_running_app().root.current = 'menu'
 
 
 
 class CheckIn(Screen):
-    def addPessQuarto(self, nome, quarto):
+    def addPessQuarto(self, nome, quarto, dias, diaria):
         popup = CustomPopup()
-        if nome is "" or quarto is "":
+        if nome is "" or quarto is "" or dias is "" or diaria is "":
             popup.call_pops('Nao foi preenchido todos os itens', 'Ok')
             return
 
 
         try:
             numero = int(quarto)
+            qtdDias = int(dias)
+            precoDia = int(diaria)
         except:
-            popup.call_pops(quarto + " nao eh um numero!", 'Ok')
+            popup.call_pops("Quarto, dias e diaria tem que ser um numero!", 'Ok')
             return
 
         # verifica se o quarto existe no hotel
@@ -158,6 +169,7 @@ class CheckIn(Screen):
             popup.call_pops('So existe quartos de 1 a 20', 'Ok')
             return
 
+        # busca cliente
         cliente = pesquisaCliente(nome)
 
         if cliente is None:
@@ -165,6 +177,11 @@ class CheckIn(Screen):
             return
 
         # vincula o quarto a pessoa
+        les_quartos = recuperaQuartos()
+
+        les_quartos.at(numero).adicionaCliente(cliente)
+        les_quartos.at(numero).definirValorDiaria(precoDia)
+        les_quartos.at(numero).definirTempoDeEstadia(qtdDias)
 
 
         print(nome + " " + quarto)

@@ -555,10 +555,30 @@
 
                     BoxLayout:
                         size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Dias que ira ficar:'
+                        TextInput:
+                            id: qtdDias
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Valor da diaria:'
+                        TextInput:
+                            id: diaria
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
                         height: 60
                         Button:
                             text: 'Check-In'
-                            on_release: root.addPessQuarto(nomeQuarto.text, numQuarto.text)
+                            on_release: root.addPessQuarto(nomeQuarto.text, numQuarto.text, qtdDias.text, diaria.text)
 
 
 <Quartos>:
