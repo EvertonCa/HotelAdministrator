@@ -1,5 +1,7 @@
 import Utilities.LDDE
 import Utilities.Fila
+import Cliente
+import Pedido
 
 
 class Quarto:
@@ -25,12 +27,17 @@ class Quarto:
     def fazerCheckout(self):
         del self.clientes
         valor_total = 0
-        valor_total += self.valor_estadia * self.tempo_estadia
-        while self.pedidos:
-            valor_total += self.pedidos.top().preco
+        valor_total += self.valor_diaria * self.tempo_estadia
+        while self.pedidos.top():
+            valor_total += self.pedidos.top().valor.preco
             self.pedidos.pop()
+
+        del self.pedidos
         self.tempo_estadia = None
         self.valor_diaria = None
+        self.clientes = Utilities.LDDE.LDDE()
+        self.pedidos = Utilities.Fila.FilaEncadeada()
+        return valor_total
 
     def __lt__(self, other):
         return self.numero < other
@@ -59,3 +66,13 @@ class Quarto:
 
     def __gt__(self, other):
         return self.numero > other
+
+
+# quarto = Quarto(1)
+# quarto.definirTempoDeEstadia(3)
+# quarto.definirValorDiaria(100)
+# cliente = Cliente.Cliente('Nome', 'telefone', 'cpf', 'endereco', 'sexo')
+# quarto.adicionaCliente(cliente)
+# pedido = Pedido.Pedido('Descricao', 200)
+# quarto.adicionaPedido(pedido)
+# print(quarto.fazerCheckout())
