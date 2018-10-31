@@ -51,7 +51,8 @@ class Cadastrar(Screen):
 
 
 class CadastrarFuncionario(Screen):
-    adm = False #
+    adm = False
+
     def adiministrador(self, *args):
         global adm
         adm = True
@@ -127,7 +128,7 @@ class Quartos(Screen):
 
         mensagem = 'Quarto: ' + str(numero) +\
                    "\nEstadia: " + str(quarto.tempo_estadia) +\
-                   "\nDiaria: " + str(quarto.valor_diaria) + "Pessoas:\n"
+                   "\nDiaria: " + str(quarto.valor_diaria) + "\nPessoas:\n"
 
         andando = quarto.clientes.primeiro_no
 
@@ -141,7 +142,7 @@ class Quartos(Screen):
 
 
 class Pedidos(Screen):
-    def addPedidos(self, pedido):
+    def addPedidos(self, pedido, quarto):
         print("Adiciona pedido " + pedido)
 
 
@@ -159,11 +160,13 @@ class CheckOut(Screen):
 
         les_quartos = recuperaQuartos()
 
-        if les_quartos.at(numero-1).valor_diaria is None:
+        if les_quartos.at(numero-1).valor_diaria is None or les_quartos.at(numero-1).tempo_estadia is None:
             popup.call_pops("Nao tem ninguem no quarto " + quarto)
             return
 
-        popup.call_pops("Valor total a pagar: " + str(les_quartos.at(numero).fazerCheckout()), "Pagar", 0.25, 0.25)
+        popup.call_pops("Valor total a pagar: " + str(les_quartos.at(numero-1).fazerCheckout()), "Pagar", 0.25, 0.25)
+
+        salvaQuartos(les_quartos)
 
 
         App.get_running_app().root.current = 'menu'
@@ -204,6 +207,8 @@ class CheckIn(Screen):
         les_quartos.at(numero-1).adicionaCliente(cliente)
         les_quartos.at(numero-1).definirValorDiaria(precoDia)
         les_quartos.at(numero-1).definirTempoDeEstadia(qtdDias)
+
+        salvaQuartos(les_quartos)
 
 
         print(nome + " " + quarto)

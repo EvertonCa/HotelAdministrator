@@ -25,12 +25,13 @@ class Quarto:
     def fazerCheckout(self):
         del self.clientes
         valor_total = 0
-        valor_total += self.valor_estadia * self.tempo_estadia
+        valor_total += self.valor_diaria * self.tempo_estadia
         while self.pedidos:
             valor_total += self.pedidos.top().preco
             self.pedidos.pop()
         self.tempo_estadia = None
         self.valor_diaria = None
+        return valor_total
 
     def __lt__(self, other):
         return self.numero < other
