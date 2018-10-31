@@ -8,7 +8,7 @@ from Controller import *
 from Criador import *
 import Model.Cliente
 import Model.Funcionarios
-from Model.Pedido import *
+import Model.Pedido
 from Model.Quarto import *
 import os
 
@@ -20,9 +20,8 @@ class Gerenciador(ScreenManager):
 
 
 class Menu(Screen):
-    # def admin(self):
-    #     return str(funcionarioLog)
     pass
+
 
 class Cadastrar(Screen):
     sexo = True  # Homem é True e mulher é False
@@ -161,7 +160,7 @@ class Pedidos(Screen):
 
         les = recuperaQuartos()
 
-        les.at(numero-1).adicionaPedido(Pedido(pedido, custo))
+        les.at(numero-1).adicionaPedido(Model.Pedido.Pedido(pedido, custo))
 
         salvaQuartos(les)
 
