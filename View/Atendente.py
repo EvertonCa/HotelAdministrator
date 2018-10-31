@@ -4,7 +4,12 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.core.window import Window
-from kivy.properties import ObjectProperty
+from Controller import *
+from Model.Funcionarios import *
+from Model.Cliente import *
+from Model.Pedido import *
+from Model.Quarto import *
+
 
 
 class Gerenciador(ScreenManager):
@@ -143,8 +148,8 @@ class CheckIn(Screen):
             return
 
         # verifica se o quarto existe no hotel
-        if numero < 1 or numero > 15:
-            popup.call_pops('So existe quartos de 1 a 15', 'Ok')
+        if numero < 1 or numero > 20:
+            popup.call_pops('So existe quartos de 1 a 20', 'Ok')
             return
 
         # busca se o nome ja foi cadastrado
@@ -158,12 +163,13 @@ class CheckIn(Screen):
         App.get_running_app().root.current = 'menu'
 
 class LoginLayout(Screen):
-
     def verificaLogin(self, login, pswd):
-
         msgPopUp = CustomPopup()
 
-        if login == "root" and pswd == "toor":
+        senha.setUser(login)
+        senha.setPassword(pswd)
+
+        if senha.verificaUserESenha is True:
             print("Certo miseravi!")
             self.ids.loginText.text = ""
             self.ids.passwordText.text = ""
@@ -192,6 +198,10 @@ class Hotel(App):
     def build(self):
         Window.clearcolor = (1, 1, 1, 1)
         return Gerenciador()
+
+
+inicializaPrograma(20)
+senha = Senhas()
 
 
 Hotel().run()

@@ -58,4 +58,4 @@ def pesquisaCliente(nome):
 # senha = Senhas('admin', 'admin')
 # print(senha.verificaUserESenha())
 # print(senha.ehAdmin())
-# inicializaPrograma(3)
+inicializaPrograma(3)
