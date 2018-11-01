@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
+from Criador import *
 
 
 class RetiraSenhaLayout(GridLayout):
@@ -8,17 +9,18 @@ class RetiraSenhaLayout(GridLayout):
 
         if preferencial:
             print(str(i) + " preferencial")
+            salvaSenhaPrioritaria(i)
         else:
             print(str(i) + " não preferencial")
+            salvaSenhaNormal(i)
 
         self.display.text = str(i)
 
 
-class HotelApp(App):
+class senhaApp(App):
 
     def build(self):
         return RetiraSenhaLayout()
 
-
-HotelApp().run()
+senhaApp().run()
 

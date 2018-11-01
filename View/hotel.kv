@@ -1,31 +1,3 @@
-<CustButton@Button>:
-    font_size: 32
-
-<RetiraSenhaLayout>:
-    id: atendente
-    display: suaSenha
-    rows: 5
-    padding: 10
-    spacing: 10
-
-    BoxLayout:
-        spacing: 10
-        CustButton:
-            text: "Senha"
-            on_release: atendente.novaSenha(suaSenha.text, False)
-        CustButton:
-            text: "Senha preferencial"
-            on_release: atendente.novaSenha(suaSenha.text, True)
-    BoxLayout:
-        orientation: 'horizontal'
-        Label:
-            text: 'Sua senha eh:'
-            font_size: 30
-        Label:
-            id: suaSenha
-            text: '0'
-            font_size: 30
-
 <Gerenciador>:
     LoginLayout:
         name: 'login'
@@ -33,9 +5,9 @@
         name: 'menu'
     Cadastrar:
         name: 'cadastro'
-    Buscar:
-        name: 'buscar'
-    Senhas:
+    Clientes:
+        name: 'clientes'
+    Senha:
         name: 'senha'
     Quartos:
         name: 'quarto'
@@ -45,81 +17,59 @@
         name: 'out'
     CheckIn:
         name: 'in'
+    CadastrarFuncionario:
+        name: 'cadastroFuncioonario'
 
 <LabelPreto@Label>:
     color: (0,0,0,1)
 
-<actionMenu@ActionBar>:
-    ActionBar:
-        ActionView:
-            use_separator: True
-            ActionPrevious:
-                title:'Menu'
-                on_release: app.root.current = 'menu'
-            ActionButton:
-                text: 'Cadastro'
-                on_release: app.root.current = 'cadastro'
-            ActionButton:
-                text: 'Buscar'
-                on_release: app.root.current = 'buscar'
-            ActionButton:
-                text: 'Senhas'
-                on_release: app.root.current = 'senha'
-            ActionButton:
-                text: 'Quartos'
-                on_release: app.root.current = 'quarto'
-            ActionButton:
-                text: 'Pedidos'
-                on_release: app.root.current = 'pedido'
-            ActionButton:
-                text: 'Check-out'
-                on_release: app.root.current = 'out'
-            ActionButton:
-                text: 'Check-in'
-                on_release: app.root.current = 'in'
-            ActionButton:
-                text: 'Sair'
-                on_release: app.stop()
 
 
 <LoginLayout>:
     BoxLayout:
-        id: login
-        padding: 200
-        spacing: 10
-        orientation: 'vertical'
+        orientation:'vertical'
 
-        BoxLayout:
-            Image:
-                source: 'logo-hotel.png'
+        ScrollView:
+            BoxLayout:
+                orientation: 'vertical'
                 size_hint_y: None
-                height: 200
-                allow_stretch: True
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            LabelPreto:
-                text: 'Login:'
-            TextInput:
-                id: loginText
-                font_size: 16
-                multiline: False
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            LabelPreto:
-                text: 'Senha:'
-            TextInput:
-                id: passwordText
-                multiline: False
-                password: True
+                height: self.minimum_height
+                spacing: 20
+                padding: 100
 
-        Button:
-            size_hint_y: None
-            height: 60
-            font_size: 16
-            text: 'Entrar'
-            on_press: root.verificaLogin(loginText.text,passwordText.text)
+                Image:
+                    source: 'Images/logo-hotel.png'
+                    size_hint_y: None
+                    height: 200
+                    allow_stretch: True
+
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 30
+                    LabelPreto:
+                        text: 'Login:'
+                    TextInput:
+                        id: loginText
+                        font_size: 16
+                        multiline: False
+                BoxLayout:
+                    size_hint_y: None
+                    height: 30
+                    LabelPreto:
+                        text: 'Senha:'
+                    TextInput:
+                        id: passwordText
+                        multiline: False
+                        password: True
+
+                BoxLayout:
+                    size_hint_y: None
+                    height: 60
+                    Button:
+                        font_size: 16
+                        text: 'Entrar'
+                        on_press: root.verificaLogin(loginText.text,passwordText.text)
 
 
 <Menu>:
@@ -131,10 +81,10 @@
                 use_separator: True
                 ActionOverflow:
                     ActionButton:
-                        text: 'Login'
+                        text: 'Logout'
                         on_release: app.root.current = 'login'
                     ActionButton:
-                        text: 'Desligar'
+                        text: 'Fechar'
                         on_release: app.stop()
                 ActionPrevious:
                     title: 'Bem Vindo!'
@@ -147,14 +97,14 @@
             BoxLayout:
                 spacing: 30
                 Button:
-                    text: 'Cadastrar'
+                    text: 'Cadastrar Cliente'
                     on_release: app.root.current = 'cadastro'
                 Button:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
                 Button:
-                    text: 'Senhas'
-                    on_release: app.root.current = 'senha'
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
 
             BoxLayout:
                 spacing: 30
@@ -165,24 +115,21 @@
                     text: 'Pedidos'
                     on_release: app.root.current = 'pedido'
                 Button:
-                    text: 'Check-out'
-                    on_release: app.root.current = 'out'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
 
             BoxLayout:
                 spacing: 30
                 Button:
                     text: 'Cadastra Funcionario'
+                    on_release: app.root.current = 'cadastroFuncioonario'
                 Button:
-                    text: 'Check-in'
-                    on_release: app.root.current = 'in'
-                Button:
-                    text: 'Sair'
-                    on_release: app.stop()
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
 
 <Cadastrar>:
     BoxLayout:
         orientation: 'vertical'
-
         ActionBar:
             ActionView:
                 use_separator: True
@@ -193,8 +140,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -215,13 +162,13 @@
                     on_release: app.stop()
         BoxLayout:
             orientation: 'vertical'
-            padding: 100
 
             ScrollView:
                 BoxLayout:
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
+                    padding: 100
                     spacing: 20
 
                     BoxLayout:
@@ -273,13 +220,13 @@
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.M
+                                on_active: root.homem(*args)
                             LabelPreto:
                                 text: 'M'
                             CheckBox:
                                 color: 0, 0, 0, 1
                                 group: "sexo_pessoa"
-                                value: root.F
+                                on_active: root.mulher(*args)
                             LabelPreto:
                                 text: 'F'
 
@@ -290,7 +237,100 @@
                         Button:
                             font_size: 16
                             text: 'OK'
-                            on_release: root.cadastraPessoa()
+                            on_release: root.cadastraPessoa(nome.text, telefone.text, cpf.text, endeteco.text)
+
+
+<CadastrarFuncionario>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        ActionBar:
+            ActionView:
+                use_separator: True
+                ActionPrevious:
+                    title:'Menu'
+                    on_release: app.root.current = 'menu'
+                ActionButton:
+                    text: 'Cadastro'
+                    on_release: app.root.current = 'cadastro'
+                ActionButton:
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
+                ActionButton:
+                    text: 'Senhas'
+                    on_release: app.root.current = 'senha'
+                ActionButton:
+                    text: 'Quartos'
+                    on_release: app.root.current = 'quarto'
+                ActionButton:
+                    text: 'Pedidos'
+                    on_release: app.root.current = 'pedido'
+                ActionButton:
+                    text: 'Check-out'
+                    on_release: app.root.current = 'out'
+                ActionButton:
+                    text: 'Check-in'
+                    on_release: app.root.current = 'in'
+                ActionButton:
+                    text: 'Sair'
+                    on_release: app.stop()
+        BoxLayout:
+            orientation: 'vertical'
+
+            ScrollView:
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+                    padding: 100
+
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        BoxLayout:
+                            LabelPreto:
+                                text: 'Sexo:'
+                        BoxLayout:
+                            CheckBox:
+                                color: 0, 0, 0, 1
+                                group: "adm"
+                                on_active: root.adiministrador(*args)
+                            LabelPreto:
+                                text: 'adiministrador'
+                            CheckBox:
+                                color: 0, 0, 0, 1
+                                group: "adm"
+                                on_active: root.normal(*args)
+                            LabelPreto:
+                                text: 'Normal'
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Login:'
+                        TextInput:
+                            id: usuario
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        LabelPreto:
+                            text: 'Senha:'
+                        TextInput:
+                            id: pwd
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            font_size: 16
+                            text: 'OK'
+                            on_release: root.cadastraFuncionario(usuario.text, pwd.text)
 
 <Pedidos>:
     BoxLayout:
@@ -306,8 +346,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -329,26 +369,45 @@
 
         BoxLayout:
             orientation: 'vertical'
-            padding: 30
-            spacing: 20
-            BoxLayout:
-                spacing: 20
-                size_hint_y: None
-                height: 60
-                LabelPreto:
-                    text: 'Pedido:'
-                TextInput:
-                    id: txtPedido
-                Button:
-                    text: 'Adicionar'
-                    on_release: root.addPedidos(txtPedido.text)
 
             ScrollView:
                 BoxLayout:
-                    id: blabla
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
+                    spacing: 20
+                    padding: 100
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        LabelPreto:
+                            text: 'Pedido:'
+                        TextInput:
+                            id: txtPedido
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        LabelPreto:
+                            text: 'Preco:'
+                        TextInput:
+                            id: preco
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        LabelPreto:
+                            text: 'Quarto:'
+                        TextInput:
+                            id: quarto
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 45
+                        Button:
+                            text: 'Adicionar'
+                            on_release: root.addPedidos(txtPedido.text, quarto.text, preco.text)
+
 
 
 <CheckOut>:
@@ -365,8 +424,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -388,30 +447,27 @@
         BoxLayout:
             orientation: 'vertical'
             padding: 30
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                LabelPreto:
-                    text: 'Numero do quarto'
-                TextInput:
-                    id: num
-                    multiline: False
-                Button:
-                    text: 'Buscar'
-
             ScrollView:
                 BoxLayout:
-                    id: inputText
+                    orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    orientation: 'vertical'
+                    spacing: 20
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        LabelPreto:
+                            text: 'Numero do quarto'
+                        TextInput:
+                            id: num
+                            multiline: False
 
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                Button:
-                    text: 'Check-Out'
-                    on_release: root.checkout()
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 60
+                        Button:
+                            text: 'Check-Out'
+                            on_release: root.checkout(num.text)
 
 
 
@@ -429,8 +485,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -457,25 +513,7 @@
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    BoxLayout:
-                        spacing: 20
-                        size_hint_y: None
-                        height: 60
-
-                        LabelPreto:
-                            text: 'Quantidade de pessoas no quarto:'
-
-                        Spinner:
-                            id: numPessIn
-                            text: "0"
-                            values: ["1", "2", "3", "4", "5"]
-                            on_text: root.qtdPessoas(numPessIn.text)
-
-                    BoxLayout:
-                        id: inputNomes
-                        size_hint_y: None
-                        height: self.minimum_height
-                        orientation: 'vertical'
+                    spacing: 20
 
                     BoxLayout:
                         size_hint_y: None
@@ -488,10 +526,40 @@
 
                     BoxLayout:
                         size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Nome:'
+                        TextInput:
+                            id: nomeQuarto
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Dias que ira ficar:'
+                        TextInput:
+                            id: qtdDias
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+
+                        LabelPreto:
+                            text: 'Valor da diaria:'
+                        TextInput:
+                            id: diaria
+                            multiline: False
+
+                    BoxLayout:
+                        size_hint_y: None
                         height: 60
                         Button:
-                            text: 'OK'
-                            on_release: root.addPessQuarto(numPessIn.text, numQuarto.text)
+                            text: 'Check-In'
+                            on_release: root.addPessQuarto(nomeQuarto.text, numQuarto.text, qtdDias.text, diaria.text)
 
 
 <Quartos>:
@@ -507,8 +575,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -527,28 +595,105 @@
                 ActionButton:
                     text: 'Sair'
                     on_release: app.stop()
+
         BoxLayout:
-            spacing: 20
             orientation: 'vertical'
-            padding: 30
-            BoxLayout:
-                size_hint_y: None
-                height: 30
-                LabelPreto:
-                    text: 'Numero do quarto:'
-                TextInput:
-                    id: txtQuarto
-                    multiline: False
-                Button:
-                    text: 'Buscar'
-                    on_release: root.buscaQuarto(txtQuarto.text)
+
             ScrollView:
                 BoxLayout:
-                    id: listaDeQuartos
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+                    padding: 60
+
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height: 100
+                        spacing: 20
+                        ButoonQuarto:
+                            text: '01'
+                            on_release: root.buscaQuarto('01')
+                        ButoonQuarto:
+                            text: '02'
+                            on_release: root.buscaQuarto('02')
+                        ButoonQuarto:
+                            text: '03'
+                            on_release: root.buscaQuarto('03')
+                        ButoonQuarto:
+                            text: '04'
+                            on_release: root.buscaQuarto('04')
+                        ButoonQuarto:
+                            text: '05'
+                            on_release: root.buscaQuarto('05')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height: 100
+                        spacing: 20
+                        ButoonQuarto:
+                            text: '06'
+                            on_release: root.buscaQuarto('06')
+                        ButoonQuarto:
+                            text: '07'
+                            on_release: root.buscaQuarto('07')
+                        ButoonQuarto:
+                            text: '08'
+                            on_release: root.buscaQuarto('08')
+                        ButoonQuarto:
+                            text: '09'
+                            on_release: root.buscaQuarto('09')
+                        ButoonQuarto:
+                            text: '10'
+                            on_release: root.buscaQuarto('10')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height: 100
+                        spacing: 20
+                        ButoonQuarto:
+                            text: '11'
+                            on_release: root.buscaQuarto('11')
+                        ButoonQuarto:
+                            text: '12'
+                            on_release: root.buscaQuarto('12')
+                        ButoonQuarto:
+                            text: '13'
+                            on_release: root.buscaQuarto('13')
+                        ButoonQuarto:
+                            text: '14'
+                            on_release: root.buscaQuarto('14')
+                        ButoonQuarto:
+                            text: '15'
+                            on_release: root.buscaQuarto('15')
+
+                    BoxLayout:
+                        size_hint_y:None
+                        height: 100
+                        spacing: 20
+                        ButoonQuarto:
+                            text: '16'
+                            on_release: root.buscaQuarto('16')
+                        ButoonQuarto:
+                            text: '17'
+                            on_release: root.buscaQuarto('17')
+                        ButoonQuarto:
+                            text: '18'
+                            on_release: root.buscaQuarto('18')
+                        ButoonQuarto:
+                            text: '19'
+                            on_release: root.buscaQuarto('19')
+                        ButoonQuarto:
+                            text: '20'
+                            on_release: root.buscaQuarto('20')
+
+<ButoonQuarto@Button>:
+    font_size: 30
 
 
 
-<Senhas>:
+<Senha>:
     BoxLayout:
         orientation: 'vertical'
         ActionBar:
@@ -561,8 +706,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -605,7 +750,7 @@
 
 
 
-<Buscar>:
+<Clientes>:
     BoxLayout:
         orientation: 'vertical'
         ActionBar:
@@ -618,8 +763,8 @@
                     text: 'Cadastro'
                     on_release: app.root.current = 'cadastro'
                 ActionButton:
-                    text: 'Buscar'
-                    on_release: app.root.current = 'buscar'
+                    text: 'Cliente'
+                    on_release: app.root.current = 'clientes'
                 ActionButton:
                     text: 'Senhas'
                     on_release: app.root.current = 'senha'
@@ -658,16 +803,53 @@
 
             ScrollView:
                 BoxLayout:
-                    id: blabla
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height
+                    spacing: 20
+                    padding: 100
 
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Nome:'
+                        LabelPreto:
+                            id: nome
 
-<PessoaIn>:
-    size_hint_y: None
-    height: 30
-    LabelPreto:
-        text: 'Nome:'
-        font_size: 30
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Telefone:'
+                        LabelPreto:
+                            id: telefone
 
-    TextInput:
-        id: default
-        multiline: False
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'CPF:'
+                        LabelPreto:
+                            id: cpf
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Endeteco:'
+                        LabelPreto:
+                            id: endeteco
+
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 20
+                        LabelPreto:
+                            text: 'Sexo:'
+                        LabelPreto:
+                            id: sexo

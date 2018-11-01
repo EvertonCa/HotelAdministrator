@@ -1,0 +1,27 @@
+<CustButton@Button>:
+    font_size: 32
+
+<RetiraSenhaLayout>:
+    id: atendente
+    display: suaSenha
+    rows: 5
+    padding: 10
+    spacing: 10
+
+    BoxLayout:
+        spacing: 10
+        CustButton:
+            text: "Senha"
+            on_release: atendente.novaSenha(suaSenha.text, False)
+        CustButton:
+            text: "Senha preferencial"
+            on_release: atendente.novaSenha(suaSenha.text, True)
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            text: 'Sua senha eh:'
+            font_size: 30
+        Label:
+            id: suaSenha
+            text: '0'
+            font_size: 30

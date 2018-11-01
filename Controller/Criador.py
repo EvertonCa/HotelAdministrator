@@ -8,7 +8,7 @@ import Utilities.AVL
 import Utilities.Fila
 
 
-os.chdir('./Files/')
+os.chdir('./Files')
 diretorio_files = os.getcwd()
 
 
@@ -115,7 +115,6 @@ def recuperaClientes(diretorio=diretorio_files):
         avl_clientes = pickle.load(file_input)
     return avl_clientes
 
-
 def recuperaSenhasNormais(diretorio=diretorio_files):
     with open(diretorio + '/SenhasNormais.pkl', 'rb') as file_input:
         fila_senhas_normais = pickle.load(file_input)
@@ -126,6 +125,23 @@ def recuperaSenhasPrioritarias(diretorio=diretorio_files):
     with open(diretorio + '/SenhasPrioritarias.pkl', 'rb') as file_input:
         fila_senhas_prioritarias = pickle.load(file_input)
     return fila_senhas_prioritarias
+
+def PopSenhasNormais(diretorio=diretorio_files):
+    fila_senhas_normais = recuperaSenhasNormais()
+    senha = fila_senhas_normais.top()
+    fila_senhas_normais.pop()
+    with open(diretorio + '/SenhasNormais.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_normais, file_output, -1)
+    return senha
+
+
+def PopSenhasPrioritarias(diretorio=diretorio_files):
+    fila_senhas_prioritarias = recuperaSenhasNormais()
+    senha = fila_senhas_prioritarias.top()
+    fila_senhas_prioritarias.pop()
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_prioritarias, file_output, -1)
+    return senha
 
 
 # def teste():
