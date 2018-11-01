@@ -6,6 +6,7 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from Controller import *
 from Criador import *
+from GerenciadorDeSenhasDeChama import *
 import Model.Cliente
 import Model.Funcionarios
 import Model.Pedido
@@ -82,9 +83,13 @@ class CadastrarFuncionario(Screen):
 class Senha(Screen):
     def proximaSenha(self, guiche, prioritaria):
         if prioritaria:
-            print("Prioritaria guiche " + guiche)
+            prox = PopSenhasPrioritarias().valor
         else:
-            print("Guiche " + guiche)
+            prox = PopSenhasNormais().valor
+        if prox is None:
+            CustomPopup().call_pops("Nao tem proxima senha", "Ok", 0.25, 0.25)
+            return
+        CustomPopup().call_pops("Proxima senha " + str(prox)+ " no guiche"+ str(guiche), "Ok", 0.25, 0.25)
 
 
 class Clientes(Screen):

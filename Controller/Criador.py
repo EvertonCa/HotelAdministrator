@@ -78,6 +78,20 @@ def salvaCliente(cliente, diretorio=diretorio_files):
         pickle.dump(avl_clientes, file_output, -1)
 
 
+def salvaSenhaNormal(senha, diretorio=diretorio_files):
+    fila_senhas_normais = recuperaSenhasNormais()
+    fila_senhas_normais.push(senha)
+    with open(diretorio + '/SenhasNormais.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_normais, file_output, -1)
+
+
+def salvaSenhaPrioritaria(senha, diretorio=diretorio_files):
+    fila_senhas_prioritarias = recuperaSenhasNormais()
+    fila_senhas_prioritarias.push(senha)
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_prioritarias, file_output, -1)
+
+
 def recuperaFuncionarios(diretorio=diretorio_files):
     with open(diretorio + '/Funcionarios.pkl', 'rb') as file_input:
         avl_funcionarios = pickle.load(file_input)
@@ -100,6 +114,34 @@ def recuperaClientes(diretorio=diretorio_files):
     with open(diretorio + '/Clientes.pkl', 'rb') as file_input:
         avl_clientes = pickle.load(file_input)
     return avl_clientes
+
+def recuperaSenhasNormais(diretorio=diretorio_files):
+    with open(diretorio + '/SenhasNormais.pkl', 'rb') as file_input:
+        fila_senhas_normais = pickle.load(file_input)
+    return fila_senhas_normais
+
+
+def recuperaSenhasPrioritarias(diretorio=diretorio_files):
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'rb') as file_input:
+        fila_senhas_prioritarias = pickle.load(file_input)
+    return fila_senhas_prioritarias
+
+def PopSenhasNormais(diretorio=diretorio_files):
+    fila_senhas_normais = recuperaSenhasNormais()
+    senha = fila_senhas_normais.top()
+    fila_senhas_normais.pop()
+    with open(diretorio + '/SenhasNormais.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_normais, file_output, -1)
+    return senha
+
+
+def PopSenhasPrioritarias(diretorio=diretorio_files):
+    fila_senhas_prioritarias = recuperaSenhasNormais()
+    senha = fila_senhas_prioritarias.top()
+    fila_senhas_prioritarias.pop()
+    with open(diretorio + '/SenhasPrioritarias.pkl', 'wb') as file_output:
+        pickle.dump(fila_senhas_prioritarias, file_output, -1)
+    return senha
 
 
 # def teste():
